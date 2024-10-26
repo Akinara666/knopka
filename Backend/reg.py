@@ -32,9 +32,7 @@ def register_user(email: str, password: str, username: str):
 
     hashed_password = hash_password(password)
 
-    # Выводим данные как результат вместо записи в файл
-    print(
-        f"Зарегистрирован новый пользователь:\nEmail: {email}\nUsername: {username}\nPassword Hash: {hashed_password}")
+
     return {"message": "Пользователь успешно зарегистрирован"}
 
 
