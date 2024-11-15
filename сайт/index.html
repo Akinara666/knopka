@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>KNOPKA</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Начальный экран -->
+    <div class="intro">
+        <h1>Погрузись в мир кино!</h1>
+    </div>
+
+    <!-- Затемнение фона -->
+    <div class="overlay"></div>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <header>
+            <div class="header-left">
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="logo">KNOPKA</div>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Найди свой любимый фильм...">
+            </div>
+            <div class="auth-buttons">
+                <button class="auth-btn login-btn">Log In</button>
+                <button class="auth-btn signup-btn">Sign Up</button>
+            </div>
+        </header>
+
+        <!-- Боковое меню -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active">Главная</a></li>
+                <li><a href="#">История</a></li>
+                <li><a href="#">Понравившиеся</a></li>
+                <li><a href="#">Смотреть позже</a></li>
+            </ul>
+        </aside>
+
+        <div class="movies-container">
+            <!-- Карточки фильмов -->
+            <div class="movie-card">
+                <img src="fight.png" alt="Movie 1">
+                <div class="movie-info">
+                    <h3 class="movie-title">Бойцовский клуб</h3>
+                    <div class="movie-genre">Боевик • Драма • Криминал </div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="king.png" alt="Movie 2">
+                <div class="movie-info">
+                    <h3 class="movie-title">Tемный рыцарь</h3>
+                    <div class="movie-genre">Боевик • Фэнтези • Приключения</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="papa.jpg" alt="Movie 3">
+                <div class="movie-info">
+                    <h3 class="movie-title">Крестный отец</h3>
+                    <div class="movie-genre">Драма • Детектив • Криминал </div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="pulp.png" alt="Movie 4">
+                <div class="movie-info">
+                    <h3 class="movie-title">Криминальное чтиво </h3>
+                    <div class="movie-genre">Криминал • Драма • Комедия</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const intro = document.querySelector('.intro');
+            const mainContent = document.querySelector('.main-content');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            // Обработка начального экрана
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    intro.classList.add('hidden');
+                    mainContent.classList.add('visible');
+                }
+            });
+
+            intro.addEventListener('click', () => {
+                intro.classList.add('hidden');
+                mainContent.classList.add('visible');
+                window.scrollTo(0, 100);
+            });
+
+            // Обработка бокового меню
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            // Закрытие меню при клике на overlay
+            overlay.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
