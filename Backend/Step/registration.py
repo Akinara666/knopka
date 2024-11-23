@@ -1,6 +1,10 @@
+from flask import Flask, request, jsonify, render_template
 from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, func
 from sqlalchemy.orm import sessionmaker, declarative_base
 from bcrypt import hashpw, gensalt
+
+# Настройка Flask
+app = Flask(__name__)
 
 # Настройка базы данных SQLite
 engine = create_engine('sqlite:///mydatabase.db', echo=True)
@@ -62,17 +66,35 @@ def register_user(email: str, password: str, username: str):
     # Добавление и сохранение в базе данных
     session.add(new_user)
     session.commit()
-    print(f"Пользователь {username} успешно зарегистрирован.")
 
-    return {"message": "Пользователь успешно зарегистрирован"}
+    return {"message": f"Пользователь {username} успешно зарегистрирован."}
 
-# Запрашиваем данные пользователя для регистрации
-email = input("Введите email: ")
-username = input("Введите имя пользователя: ")
-password = input("Введите пароль: ")
+# Эндпоинт для страницы регистрации (HTML форма)
+@app.route('/signup', methods=['GET'])
+def signup_form():
+    return render_template('signup.html')
 
-try:
-    result = register_user(email, password, username)
-    print(result["message"])
-except ValueError as e:
-    print(f"Ошибка: {e}")
+# Эндпоинт для регистрации пользователя (POST запрос)
+@app.route('/register', methods=['POST'])
+def register():
+    # Получаем данные из формы
+    username = request.form.get('signupUsername')
+    email = request.form.get('signupEmail')
+    password = request.form.get('signupPassword')
+    confirm_password = request.form.get('signupConfirmPassword')
+
+    # Проверка на совпадение паролей
+    if password != confirm_password:
+        return jsonify({"error": "Пароли не совпадают"}), 400
+
+    try:
+        result = register_user(email, password, username)
+        return jsonify(result), 201
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+
+# Запуск приложения Flask
+if __name__ == '__main__':
+    # Создаём таблицы в базе данных, если они еще не существуют
+    Base.metadata.create_all(engine)
+    app.run(debug=True)
