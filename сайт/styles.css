@@ -169,31 +169,6 @@ header {
     letter-spacing: 2px;
 }
 
-/* Поисковая строка */
-.search-container {
-    flex-grow: 1;
-    max-width: 600px;
-    position: relative;
-}
-
-.search-bar {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    border-radius: 30px;
-    border: 2px solid rgba(74, 0, 87, 0.3);
-    background: rgba(20, 0, 25, 0.5);
-    color: #fff;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-}
-
-.search-bar:focus {
-    outline: none;
-    border-color: #4a0057;
-    background: rgba(74, 0, 87, 0.2);
-    box-shadow: 0 0 20px rgba(74, 0, 87, 0.2);
-}
-
 /* Кнопки авторизации */
 .auth-buttons {
     display: flex;
@@ -399,4 +374,102 @@ header {
             0 0 50px rgba(184, 146, 201, 0.6),
             0 0 75px rgba(184, 146, 201, 0.3);
     }
+}
+
+/* Профиль */
+.profile-container {
+    padding: 2rem;
+    text-align: center;
+}
+
+.profile-header {
+    margin-bottom: 2rem;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.profile-name {
+    font-size: 2em;
+    color: #b892c9;
+}
+
+.profile-info p {
+    margin: 0.5rem 0;
+    font-size: 1.2em;
+}
+
+/* История, Понравившиеся, Смотреть позже */
+.history-list, .liked-list, .watch-later-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    background: rgba(20, 0, 25, 0.95);
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease; /* Добавляем анимацию */
+}
+
+.history-item img {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+    margin-right: 1rem;
+    border-radius: 10px;
+}
+
+.history-item:hover {
+    transform: translateY(-10px) scale(1.02); /* Подсветка при наведении */
+    box-shadow: 0 10px 25px rgba(74, 0, 87, 0.5);
+}
+
+.history-info {
+    flex-grow: 1;
+}
+
+.history-info h3 {
+    font-size: 1.2em;
+    margin-bottom: 0.5rem;
+}
+
+.history-info .movie-genre {
+    font-size: 0.9em;
+    color: #b892c9;
+}
+
+
+/* Поисковая строка */
+.search-container {
+    flex-grow: 1;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 30px;
+    border: 2px solid rgba(74, 0, 87, 0.3);
+    background: rgba(20, 0, 25, 0.5);
+    color: #fff;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #4a0057;
+    background: rgba(74, 0, 87, 0.2);
+    box-shadow: 0 0 20px rgba(74, 0, 87, 0.2);
 }
