@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import datetime
 
 # Определение базы данных авторизации и модели
-DATABASE_URL_AUTH = "sqlite:///users.db"
+DATABASE_URL_AUTH = "sqlite:///mydatabase.db"
 engine_auth = create_engine(DATABASE_URL_AUTH)
 SessionAuth = sessionmaker(bind=engine_auth)
 BaseAuth = declarative_base()
@@ -39,5 +39,5 @@ def logout_user(token):
 # Основной код для тестирования функции выхода
 if __name__ == "__main__":
     # Пример токена для выхода
-    token = "d70213a96824ba3a929bb19ac8c61421"  # замените на реальный токен для тестирования
+    token = "3a43ea67564f19734fd08ab49a999c22"  # замените на реальный токен для тестирования
     logout_user(token)

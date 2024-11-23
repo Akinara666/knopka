@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 import bcrypt
 
 # Подключение к базе данных
-engine = create_engine('sqlite:///users.db')
+engine = create_engine('sqlite:///mydatabase.db')
 Base = declarative_base()
 
 # Настройка сессии
@@ -14,7 +14,7 @@ session = Session()
 
 
 class UserLogin(Base):
-    __tablename__ = 'user_logins'
+    __tablename__ = 'user_token'
     user_id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String, unique=True, nullable=False)
     password_hash = Column(String, nullable=False)
@@ -28,7 +28,7 @@ class UserLogin(Base):
 
 # Создание таблицы в базе данных
 Base.metadata.create_all(engine)
-print("Таблица user_logins успешно создана.")
+print("Таблица user_token успешно создана.")
 
 
 def add_user(username, password, email):
@@ -62,5 +62,3 @@ def add_user(username, password, email):
         session.rollback()
         print("Ошибка при добавлении пользователя. Возможно, email или username уже существуют.")
 
-# Добавляем тестового пользователя
-add_user('fred', 'fred', 'fred@example.com')

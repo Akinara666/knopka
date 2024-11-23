@@ -6,7 +6,7 @@ import secrets
 
 # Настройки баз данных
 DATABASE_URL_MAIN = "sqlite:///mydatabase.db"  # Основная база данных
-DATABASE_URL_AUTH = "sqlite:///users.db"  # База данных авторизованных пользователей
+DATABASE_URL_AUTH = "sqlite:///mydatabase.db"  # База данных авторизованных пользователей
 
 # Настройка основной базы данных и модели
 engine_main = create_engine(DATABASE_URL_MAIN)
@@ -92,7 +92,7 @@ def login_user(username, password):
 # Основной код для тестирования функции логина
 if __name__ == "__main__":
     # Пример данных для логина
-    username = "grya"  # замените на имя пользователя для тестирования
-    password = "12345"  # замените на пароль для тестирования
+    username = "fed"  # замените на имя пользователя для тестирования
+    password = "fed"  # замените на пароль для тестирования
 
     login_user(username, password)

@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, CheckConstraint
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.sql import text
 
@@ -14,15 +14,19 @@ DATABASE_URL_USERS = "sqlite:///mydatabase.db"
 engine_users = create_engine(DATABASE_URL_USERS)
 SessionUsers = sessionmaker(bind=engine_users)
 
-class UserPreference(BasePrefs):
-    __tablename__ = 'user_preferences'
+class UserLike(BasePrefs):
+    __tablename__ = 'user_like'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, nullable=False)  # Добавленный столбец
     username = Column(String, nullable=False)
     movie_or_series = Column(String, nullable=False)
-    rating = Column(Float, nullable=False)
+    like = Column(Float, nullable=False)
     updated_at = Column(DateTime, default=datetime.datetime.now(datetime.timezone.utc),
                         onupdate=datetime.datetime.now(datetime.timezone.utc))
+
+    __table_args__ = (
+        CheckConstraint('like IN (0, 1)', name='check_like_in_0_1'),  # Ограничение для рейтинга
+    )
 
 
 # Пересоздаем таблицу предпочтений, если база данных очищена
@@ -39,7 +43,7 @@ def get_user_id(username: str) -> int:
     finally:
         session_users.close()
 
-def add_or_update_preference(username, movie_or_series, rating):
+def add_or_update_like(username, movie_or_series, like_value):
     user_id = get_user_id(username)  # Получаем user_id пользователя
     if not user_id:
         print(f"Ошибка: Пользователь с именем {username} не найден в базе данных пользователей.")
@@ -47,20 +51,20 @@ def add_or_update_preference(username, movie_or_series, rating):
 
     session = SessionPrefs()
     try:
-        preference = session.query(UserPreference).filter_by(user_id=user_id, movie_or_series=movie_or_series).first()
-        if preference:
-            preference.rating = rating
-            preference.updated_at = datetime.datetime.now(datetime.timezone.utc)
-            print(f"Оценка для {movie_or_series} обновлена на {rating}.")
+        like_record = session.query(UserLike).filter_by(user_id=user_id, movie_or_series=movie_or_series).first()
+        if like_record:
+            like_record.like = like_value  # Обновляем оценку
+            like_record.updated_at = datetime.datetime.now(datetime.timezone.utc)
+            print(f"Оценка для {movie_or_series} обновлена на {like_value}.")
         else:
-            new_preference = UserPreference(
-                user_id=user_id,  # Сохраняем user_id пользователя
+            new_like = UserLike(
+                user_id=user_id,
                 username=username,
                 movie_or_series=movie_or_series,
-                rating=rating,
+                like=like_value,
                 updated_at=datetime.datetime.now(datetime.timezone.utc)
             )
-            session.add(new_preference)
+            session.add(new_like)
             print(f"Оценка для {movie_or_series} добавлена.")
         session.commit()
     except Exception as e:
@@ -69,7 +73,7 @@ def add_or_update_preference(username, movie_or_series, rating):
     finally:
         session.close()
 
-def delete_preference(username, movie_or_series):
+def delete_like(username, movie_or_series):
     user_id = get_user_id(username)
     if not user_id:
         print(f"Ошибка: Пользователь с именем {username} не найден в базе данных пользователей.")
@@ -77,9 +81,9 @@ def delete_preference(username, movie_or_series):
 
     session = SessionPrefs()
     try:
-        preference = session.query(UserPreference).filter_by(user_id=user_id, movie_or_series=movie_or_series).first()
-        if preference:
-            session.delete(preference)
+        like_record = session.query(UserLike).filter_by(user_id=user_id, movie_or_series=movie_or_series).first()
+        if like_record:
+            session.delete(like_record)
             session.commit()
             print(f"Оценка для {movie_or_series} удалена.")
         else:
@@ -90,19 +94,25 @@ def delete_preference(username, movie_or_series):
     finally:
         session.close()
 
-def manage_preference():
+def manage_like():
     action = input(
         "Что вы хотите сделать? \nВведите 'a' для добавления/изменения оценки \nВведите 'd' для удаления \n======>").strip().lower()
     username = input("Введите имя пользователя: ").strip()
     movie_or_series = input("Введите название фильма или сериала: ").strip()
 
     if action == 'a':
-        rating = float(input("Введите оценку: ").strip())
-        add_or_update_preference(username, movie_or_series, rating)
+        try:
+            like_value = float(input("Введите оценку (0 или 1): ").strip())
+            if like_value not in [0, 1]:
+                print("Ошибка: Оценка должна быть 0 или 1.")
+                return
+            add_or_update_like(username, movie_or_series, like_value)
+        except ValueError:
+            print("Ошибка: Введите число для оценки.")
     elif action == 'd':
-        delete_preference(username, movie_or_series)
+        delete_like(username, movie_or_series)
     else:
         print("Неверный ввод. Пожалуйста, введите 'a' или 'd'.")
 
 # Пример использования
-manage_preference()
+manage_like()

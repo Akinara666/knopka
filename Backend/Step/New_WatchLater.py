@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, CheckConstraint
 from sqlalchemy.orm import declarative_base, sessionmaker
 import datetime
 
@@ -8,13 +8,12 @@ BasePrefs = declarative_base()
 SessionPrefs = sessionmaker(bind=engine_prefs)
 
 
-class UserPreference(BasePrefs):
-    __tablename__ = 'user_preferences'
+class UserWatchLater(BasePrefs):
+    __tablename__ = 'user_wl'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, nullable=False)  # Добавляем user_id
     username = Column(String, nullable=False)
     movie_or_series = Column(String, nullable=False)  # Обратите внимание, что это поле должно присутствовать
-    rating = Column(Float, nullable=False)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 
 
