@@ -20,9 +20,11 @@
         <header>
             <div class="header-left">
                 <div class="menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="30" viewBox="0 0 40 30">
+                        <rect width="40" height="6" fill="#ff69b4" rx="3" />
+                        <rect y="12" width="40" height="6" fill="#ff69b4" rx="3" />
+                        <rect y="24" width="40" height="6" fill="#ff69b4" rx="3" />
+                    </svg>
                 </div>
                 <button class='glowing-btn'><span class='glowing-txt'>K<span class='faulty-letter'>N</span>OPKA</span></button>
             </div>
@@ -78,6 +80,40 @@
         </div>
     </div>
 
+    <!-- Модальное окно для входа -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Log In</h2>
+            <form>
+                <label for="loginUsername">Логин</label>
+                <input type="text" id="loginUsername" name="loginUsername" required>
+                <label for="loginPassword">Пароль</label>
+                <input type="password" id="loginPassword" name="loginPassword" required>
+                <button type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для регистрации -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form>
+                <label for="signupUsername">Имя пользователя</label>
+                <input type="text" id="signupUsername" name="signupUsername" required>
+                <label for="signupLogin">Логин</label>
+                <input type="text" id="signupLogin" name="signupLogin" required>
+                <label for="signupPassword">Пароль</label>
+                <input type="password" id="signupPassword" name="signupPassword" required>
+                <label for="signupConfirmPassword">Подтвердите пароль</label>
+                <input type="password" id="signupConfirmPassword" name="signupConfirmPassword" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const intro = document.querySelector('.intro');
@@ -85,7 +121,12 @@
             const menuToggle = document.querySelector('.menu-toggle');
             const sidebar = document.querySelector('.sidebar');
             const overlay = document.querySelector('.overlay');
-            
+            const loginBtn = document.querySelector('.login-btn');
+            const signupBtn = document.querySelector('.signup-btn');
+            const loginModal = document.getElementById('loginModal');
+            const signupModal = document.getElementById('signupModal');
+            const closeBtns = document.querySelectorAll('.close');
+
             // Обработка начального экрана
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -112,6 +153,34 @@
                 menuToggle.classList.remove('active');
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
+            });
+
+            // Открытие модального окна для входа
+            loginBtn.addEventListener('click', () => {
+                loginModal.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            // Открытие модального окна для регистрации
+            signupBtn.addEventListener('click', () => {
+                signupModal.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            // Закрытие модальных окон
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                    signupModal.style.display = 'none';
+                    overlay.style.display = 'none';
+                });
+            });
+
+            // Закрытие модальных окон при клике на overlay
+            overlay.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                signupModal.style.display = 'none';
+                overlay.style.display = 'none';
             });
         });
     </script>
