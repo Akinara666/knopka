@@ -1,8 +1,11 @@
+from flask import Flask, render_template, request, jsonify
 import bcrypt
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
 import datetime
 import secrets
+
+app = Flask(__name__)
 
 # Настройки баз данных
 DATABASE_URL_MAIN = "sqlite:///mydatabase.db"  # Основная база данных
@@ -96,3 +99,25 @@ if __name__ == "__main__":
     password = "fed"  # замените на пароль для тестирования
 
     login_user(username, password)
+
+# Эндпоинт для страницы логина (HTML форма)
+@app.route('/login', methods=['GET'])
+def login_form():
+    return render_template('login.html')  # Ваш HTML файл для логина
+
+
+# Эндпоинт для логина пользователя (POST запрос)
+@app.route('/login', methods=['POST'])
+def login_request():
+    username = request.form.get('loginUsername')
+    password = request.form.get('loginPassword')
+
+    result = login_user(username, password)
+    if 'error' in result:
+        return jsonify(result), 400
+    else:
+        return jsonify(result), 200
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
