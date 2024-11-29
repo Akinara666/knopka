@@ -1,6 +1,9 @@
+from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker, declarative_base
 import datetime
+
+app = Flask(__name__)
 
 # Определение базы данных авторизации и модели
 DATABASE_URL_AUTH = "sqlite:///mydatabase.db"
@@ -41,3 +44,26 @@ if __name__ == "__main__":
     # Пример токена для выхода
     token = "3a43ea67564f19734fd08ab49a999c22"  # замените на реальный токен для тестирования
     logout_user(token)
+
+
+# Эндпоинт для выхода из аккаунта
+@app.route('/logout', methods=['POST'])
+def logout():
+    # Получаем токен из запроса
+    token = request.json.get('token')
+
+    if not token:
+        return jsonify({"error": "Токен отсутствует"}), 400
+
+    # Вызываем функцию logout_user
+    result = logout_user(token)
+
+    if "error" in result:
+        return jsonify(result), 400
+    else:
+        return jsonify(result), 200
+
+
+# Запуск приложения Flask
+if __name__ == '__main__':
+    app.run(debug=True)
