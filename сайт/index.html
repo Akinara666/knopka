@@ -41,11 +41,12 @@
     <!-- Боковое меню -->
     <aside class="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="#" class="active" data-tab="home">Главная</a></li>
+            <li><a href="#" class="active" data-tab="home">Поиск</a></li>
             <li><a href="#" data-tab="profile">Профиль</a></li>
             <li><a href="#" data-tab="history">История</a></li>
             <li><a href="#" data-tab="liked">Понравившиеся</a></li>
             <li><a href="#" data-tab="watch-later">Смотреть позже</a></li>
+            <li><a href="#" data-tab="scroll-page">Рекомендации</a></li>
         </ul>
     </aside>
 
@@ -82,6 +83,128 @@
                         <h3 class="movie-title">Криминальное чтиво </h3>
                         <div class="movie-genre">Криминал • Драма • Комедия</div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Scroller-->
+        <div class="tab-content" id="scroll-page" style="display: none;">
+            <div class="reels-container">
+                <div class="reels">
+
+                    <div class="reel">
+                        
+                        <div class="reel-header">
+                            <h1>Pulp Fiction</h1>
+                        </div>
+
+                        <div class="reel-main">
+                            <div class="img-holder"><img src="pulp.png"></div>
+                            <div class="trailer-holder">
+                                <video id="video1" autoplay muted>
+                                    <source src="https://imdb-video.media-imdb.com/vi2620371481/1434659607842-pgv4ql-1450205469045.mp4?Expires=1733001985&Signature=LuGqNrC1Hh95p6nTFTTT0X8kNpNQivsaTEH20j1uukAWwhLh~OY-tpfRVvKxaSt9AKDORrVLtsHO8v083tPlGLTg07Mgb9YLotKiJPWZWua9GmSY-fFZAbI8DVXbRqMmsFRmc~ppG38aDN-kvYblNUOTJ9CmUnXm2QHTTSK6HMTOGhX4Q9qRSQzCHkq9cFzov2-cyl7NxyXWQIioiGlPOwKS30VdATk~ZsmcQwx8UFftxyMwmPoF3ecNDsLBRgAVwdyyWjuQAbgox-W5OxBicBcB6~oXAFEAHEpk56fFxn4z-mVSnb6oA5i7esazQR1fxMgrbRiBogR5053v~NN0HA__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA">
+                                </video>
+                            </div>
+                            <div class="rating">
+                                <button>Add to Watchlist</button>
+                                <button>Like</button>
+                                <button>Watched</button>
+
+                                <div class="metric-score">
+                                    <h1>⭐8.9/10</h1>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="reel-footer">
+                            <div class="categories">
+                                <div class="category"><h4>Gangster</h4></div>
+                                <div class="category"><h4>Action</h4></div>
+                                <div class="category"><h4>Crime</h4></div>
+                                <div class="category"><h4>Drama</h4></div>
+                            </div>
+                            <div class="description">
+                                <h4>The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reel">
+                        <div class="reel-header">
+                            <h1>The Godfather</h1>
+                        </div>
+
+                        <div class="reel-main">
+                            <div class="img-holder"><img src="papa.jpg"></div>
+                            <div class="trailer-holder">
+                                <video id="video2" autoplay muted>
+                                    <source src="https://imdb-video.media-imdb.com/vi1348706585/1434659607842-pgv4ql-1616202346191.mp4?Expires=1733002316&Signature=l5sEfm0MLDAM-EDsPzgqveuvJMzpRRXxU9xaNCpLBd-562mbULEsRLRBYuRyhBJ-0tUwXmCd8wdv6VW00bF5g4eIbM22adKKH~Mtksg1nZNSKgUzl3AnAfFIAtqJFm1WN3V6zBrA4hRx6tPNoOBMbeHjIfEZ7DUehULBiaSET30XsqAn3NrSq-1qbI60P2r2oGojjr1fzttCD5QiUGs0hyOUM1gzRj6wBUJkeA-3STIInlXKjySbdOmUBuUsb65LB9aTH0sVgL2HsKUfhqbVLUxv3rhimvA8U0bkAAEtDqqmSh15G7gU6fqZ0btYAqvOaBmeMWAyt2NeYFg5KtVbyA__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA">
+                                </video>
+                            </div>
+                            <div class="rating">
+                                <button>Add to Watchlist</button>
+                                <button>Like</button>
+                                <button>Watched</button>
+
+                                <div class="metric-score">
+                                    <h1>⭐9.2/10</h1>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="reel-footer">
+                            <div class="categories">
+                                <div class="category"><h4>Epic</h4></div>
+                                <div class="category"><h4>Ganster</h4></div>
+                                <div class="category"><h4>Tragedy</h4></div>
+                                <div class="category"><h4>Drama</h4></div>
+                                <div class="category"><h4>Crime</h4></div>
+                            </div>
+                            <div class="description">
+                                <h4>The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.</h4>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="reel">
+                        <div class="reel-header">
+                            <h1>Fight Club</h1>
+                        </div>
+
+                        <div class="reel-main">
+                            <div class="img-holder"><img src="fight.png"></div>
+                            <div class="trailer-holder">
+                                <video id="video3" autoplay muted>
+                                    <source src="https://imdb-video.media-imdb.com/vi123455001/1434659607842-pgv4ql-1727104628503.mp4?Expires=1733002531&Signature=nWl4kMKrMeUh7a2Bj1vN5~cjW58-AD-jQms0RQvli2agGgb4emPd-Xzj5qHDmggtlHw443WroxdsTqhWJc9GQtYQ7v3JbxaEbKjL71yo8v30Y~VPoywtqZCqvkrmGUgMSq0AqqEKJvOdYNOOrS5u6IT-D3QItM0za~F3PkGo9FyBbsOKVB4INwAQxBKdV~4F1ZdGuCah6i5Qvax3jTbiwOz8aVe3RXZaGZmdir3EzvomiQvsbhUnDsupYQhB1PNykKVQ2QT7D6nmScjN9xmFJkTjRm8pjsIwyxyJyMIub0iERLor7Uy35~GUaQwLjtJfNWPebg3LYfca~EQ0PdCEzA__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA">
+                                </video>
+                            </div>
+                            <div class="rating">
+                                <button>Add to Watchlist</button>
+                                <button>Like</button>
+                                <button>Watched</button>
+
+                                <div class="metric-score">
+                                    <h1>⭐8.8/10</h1>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="reel-footer">
+                            <div class="categories">
+                                <div class="category"><h4>Psychological Drama</h4></div>
+                                <div class="category"><h4>Workplace Drama</h4></div>
+                                <div class="category"><h4>Drama</h4></div>
+                            </div>
+                            <div class="description">
+                                <h4>An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.</h4>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -180,6 +303,33 @@
     </div>
 
     <script>
+        function observeVideos() {
+            const videos = document.querySelectorAll('video');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.currentTime = 0;
+                        entry.target.play();
+                    } else {
+                        entry.target.pause();
+                    }
+                });
+            }, { threshold: 0.5 }); // Adjust threshold as needed
+
+            videos.forEach(video => {
+                observer.observe(video);
+                video.addEventListener('ended', () => {
+                    video.currentTime = 0;
+                    video.play();
+                });
+            });
+        }
+
+        // Call the function to start observing
+        observeVideos();
+
+
         document.addEventListener('DOMContentLoaded', () => {
             const intro = document.querySelector('.intro');
             const mainContent = document.querySelector('.main-content');
