@@ -1,6 +1,9 @@
 import datetime
+from flask import Flask, request, jsonify
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
+
+app = Flask(__name__)
 
 # База данных для "смотреть позже"
 DATABASE_URL_WL = "sqlite:///mydatabase.db"
@@ -99,6 +102,46 @@ def manage_wl():
         delete_wl(username, movie_or_series)
     else:
         print("Неверный ввод. Пожалуйста, введите 'a' или 'd'.")
+
+@app.route('/watch-later', methods=['POST'])
+def add_to_watch_later_endpoint():
+    data = request.json
+    username = data.get('username')
+    movie_or_series = data.get('movie_or_series')
+
+    if not all([username, movie_or_series]):
+        return jsonify({"error": "Укажите username и movie_or_series."}), 400
+
+    user_id = get_user_id(username)
+    if not user_id:
+        return jsonify({"error": f"Пользователь {username} не найден."}), 404
+
+    result = add_to_watch_later(user_id, username, movie_or_series)
+    status_code = 200 if "message" in result else 400
+    return jsonify(result), status_code
+
+# Эндпоинт для удаления из "Смотреть позже"
+@app.route('/watch-later', methods=['DELETE'])
+def delete_from_watch_later_endpoint():
+    data = request.json
+    username = data.get('username')
+    movie_or_series = data.get('movie_or_series')
+
+    if not all([username, movie_or_series]):
+        return jsonify({"error": "Укажите username и movie_or_series."}), 400
+
+    user_id = get_user_id(username)
+    if not user_id:
+        return jsonify({"error": f"Пользователь {username} не найден."}), 404
+
+    result = delete_from_watch_later(user_id, movie_or_series)
+    status_code = 200 if "message" in result else 400
+    return jsonify(result), status_code
+
+# Запуск Flask-приложения
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 # Пример использования
 manage_wl()

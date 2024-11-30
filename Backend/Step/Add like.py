@@ -1,7 +1,10 @@
 import datetime
+from flask import Flask, request, jsonify
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, CheckConstraint
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.sql import text
+
+app = Flask(__name__)
 
 # База данных для предпочтений
 DATABASE_URL_PREFS = "sqlite:///mydatabase.db"
@@ -113,6 +116,51 @@ def manage_like():
         delete_like(username, movie_or_series)
     else:
         print("Неверный ввод. Пожалуйста, введите 'a' или 'd'.")
+
+
+# Эндпоинт для добавления или обновления лайка
+@app.route('/like', methods=['POST'])
+def like():
+    data = request.json
+    username = data.get('username')
+    movie_or_series = data.get('movie_or_series')
+    like_value = data.get('like')
+
+    if not all([username, movie_or_series, like_value in [0, 1]]):
+        return jsonify({"error": "Неправильные данные. Убедитесь, что указаны username, movie_or_series, и like (0 или 1)."}), 400
+
+    user_id = get_user_id(username)
+    if not user_id:
+        return jsonify({"error": f"Пользователь {username} не найден."}), 404
+
+    result = add_or_update_like(user_id, username, movie_or_series, like_value)
+    status_code = 200 if "message" in result else 400
+    return jsonify(result), status_code
+
+
+# Эндпоинт для удаления лайка
+@app.route('/like', methods=['DELETE'])
+def unlike():
+    data = request.json
+    username = data.get('username')
+    movie_or_series = data.get('movie_or_series')
+
+    if not all([username, movie_or_series]):
+        return jsonify({"error": "Неправильные данные. Убедитесь, что указаны username и movie_or_series."}), 400
+
+    user_id = get_user_id(username)
+    if not user_id:
+        return jsonify({"error": f"Пользователь {username} не найден."}), 404
+
+    result = delete_like(user_id, movie_or_series)
+    status_code = 200 if "message" in result else 400
+    return jsonify(result), status_code
+
+
+# Запуск приложения Flask
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 # Пример использования
 manage_like()
