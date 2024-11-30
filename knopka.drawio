@@ -1,0 +1,81 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.1124 YaBrowser/24.7.1.1124 Yowser/2.5 Safari/537.36" version="24.7.14">
+  <diagram name="Страница — 1" id="F6siZ49jI6AkvLXUhRoX">
+    <mxGraphModel dx="836" dy="785" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-2" value="Кнопка старт" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="110" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="280" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="240" y="245" />
+              <mxPoint x="240" y="281" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-3" value="Выбор интересующих жанров, актеров, режиссеров" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="210" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-7" target="vEvHeCNQ_8Y1e0JBkgRd-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-7" target="vEvHeCNQ_8Y1e0JBkgRd-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-7" value="Первичная подборка фильмов" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-9" target="vEvHeCNQ_8Y1e0JBkgRd-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-9" target="vEvHeCNQ_8Y1e0JBkgRd-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-9" value="Запись данных&amp;nbsp;&lt;div&gt;пользователя в базу данных&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-11" target="vEvHeCNQ_8Y1e0JBkgRd-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-11" value="Поиск фильма" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-13" target="vEvHeCNQ_8Y1e0JBkgRd-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="70" y="510" />
+              <mxPoint x="330" y="510" />
+              <mxPoint x="330" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-13" value="Страница фильма" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-16" target="vEvHeCNQ_8Y1e0JBkgRd-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-16" value="Оценивание фильма" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="510" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vEvHeCNQ_8Y1e0JBkgRd-18" target="vEvHeCNQ_8Y1e0JBkgRd-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-18" value="Формирование рекомендаций" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vEvHeCNQ_8Y1e0JBkgRd-27" value="Концептуальная диаграмма&lt;br&gt;&quot;Кнопка&quot;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="130" width="490" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

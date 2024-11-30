@@ -1,0 +1,83 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Страница — 1" id="7lAWJ4ae9qcZM8dmL9a5">
+    <mxGraphModel dx="1195" dy="1864" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VIhGM8gH22k3-B1McAOV-1" value="идет проверка данных из базы данных о пользователях" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="240" width="280" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-3" value="вводятся данные&lt;div&gt;логин и пароль&lt;/div&gt;" style="shape=manualInput;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="110" width="110" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-4" value="Экран входа&lt;div&gt;Показывается строка логина и пароля&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=display;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-11" value="в базу данных логинов вносится пользователь и его токен" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="385" y="490" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=40;exitDy=40;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-12" target="VIhGM8gH22k3-B1McAOV-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-12" value="Вход в аккаунт" style="shape=display;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="410" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-14" target="VIhGM8gH22k3-B1McAOV-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-14" value="Пользователь производит выход из аккаунта" style="shape=manualInput;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="-10" width="170" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-16" value="удаляется строка польователя и его токена&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="657" y="190" width="170" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=67.5;exitDy=80;exitPerimeter=0;entryX=0.424;entryY=0.183;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-4" target="VIhGM8gH22k3-B1McAOV-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.274;entryY=-0.008;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-3" target="VIhGM8gH22k3-B1McAOV-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.604;entryY=-0.062;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-1" target="VIhGM8gH22k3-B1McAOV-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=53.75;exitDy=60;exitPerimeter=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-21" target="VIhGM8gH22k3-B1McAOV-23">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="124.16666666666674" y="159.99999999999977" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-21" value="Экран&lt;div&gt;Регистрации&lt;/div&gt;" style="shape=display;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="20" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-23" target="VIhGM8gH22k3-B1McAOV-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="124.16666666666674" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-23" value="Пользователь&lt;div&gt;вводит никнейм,&lt;/div&gt;&lt;div&gt;почта,&lt;br&gt;&lt;/div&gt;&lt;div&gt;пароль&lt;/div&gt;" style="shape=manualInput;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="84.17" y="120" width="80" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-25" target="VIhGM8gH22k3-B1McAOV-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="124.16666666666674" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-25" value="На почту приходит&lt;div&gt;2FA&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="64.16666666666674" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="VIhGM8gH22k3-B1McAOV-27" target="VIhGM8gH22k3-B1McAOV-29">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-27" value="Вводиться код&lt;div&gt;подтверждения&lt;/div&gt;" style="shape=manualInput;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="72.08" y="420" width="104.17" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VIhGM8gH22k3-B1McAOV-29" value="Добавляется пользователь&lt;div&gt;никнейм,&lt;/div&gt;&lt;div&gt;хэшированный пароль,&lt;/div&gt;&lt;div&gt;почта,&lt;/div&gt;&lt;div&gt;дата&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="580" width="210" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
