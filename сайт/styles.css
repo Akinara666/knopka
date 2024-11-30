@@ -556,7 +556,6 @@ header {
 }
 
 .rating button {
-    height: 50px;
     background: linear-gradient(to right, #570039, #570039);
     border: none;
     color: white;
