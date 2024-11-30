@@ -344,16 +344,21 @@
             const tabLinks = document.querySelectorAll('.sidebar-menu a');
             const tabContents = document.querySelectorAll('.tab-content');
 
-
             
+            // Обработка интро
 
-            // Обработка начального экрана
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    intro.classList.add('hidden');
-                    mainContent.classList.add('visible');
-                }
-            });
+            // Функция для запуска анимации через 1 секунду
+            function startIntroAnimation() {
+                const introElement = document.querySelector('.intro');
+                setTimeout(() => {
+                    introElement.classList.add('hidden');
+                }, 3000); // 3000 миллисекунд = 1 секунда
+                mainContent.classList.add('visible');
+
+            }
+
+            // Запускаем функцию после полной загрузки страницы
+            window.addEventListener('load', startIntroAnimation);
 
             intro.addEventListener('click', () => {
                 intro.classList.add('hidden');
