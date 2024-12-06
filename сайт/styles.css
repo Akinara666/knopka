@@ -211,9 +211,11 @@ header {
     gap: 2rem;
     margin-top: 20px;
     transition: transform 0.3s ease;
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+    max-height: calc(100vh - 160px); /* Ограничиваем высоту контейнера */
 }
 
-.movie-card {
+.movie-card  {
     position: relative;
     border-radius: 15px;
     overflow: hidden;
@@ -385,8 +387,8 @@ header {
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
     margin-bottom: 1rem;
 }
@@ -538,7 +540,7 @@ header {
     width: 60%;
 }
 
-.trailer-holder video {
+.trailer-holder iframe {
     width: 100%;
     height: 400px;
     object-fit: cover;
@@ -618,6 +620,3 @@ header {
 .description h4 {
     font-weight: lighter;
 }
-
-
-

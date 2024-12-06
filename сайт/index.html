@@ -42,54 +42,25 @@
     <!-- Боковое меню -->
     <aside class="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="#" class="active" data-tab="home">Поиск</a></li>
+            <li><a href="#"  data-tab="scroll-page">Рекомендации</a></li>
+            <li><a href="#"  class="active" data-tab="home">Поиск</a></li>
             <li><a href="#" data-tab="profile">Профиль</a></li>
             <li><a href="#" data-tab="history">История</a></li>
             <li><a href="#" data-tab="liked">Понравившиеся</a></li>
             <li><a href="#" data-tab="watch-later">Смотреть позже</a></li>
-            <li><a href="#" data-tab="scroll-page">Рекомендации</a></li>
         </ul>
     </aside>
 
-    <!-- Контент страниц -->
-    <div class="content-container">
-        <!-- Главная страница -->
-        <div class="tab-content" id="home">
-            <div class="movies-container">
-                <!-- Карточки фильмов -->
-                <div class="movie-card">
-                    <img src="fight.png" alt="Movie 1">
-                    <div class="movie-info">
-                        <h3 class="movie-title">Бойцовский клуб</h3>
-                        <div class="movie-genre">Боевик • Драма • Криминал</div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <img src="king.png" alt="Movie 2">
-                    <div class="movie-info">
-                        <h3 class="movie-title">Tемный рыцарь</h3>
-                        <div class="movie-genre">Боевик • Фэнтези • Приключения</div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <img src="papa.jpg" alt="Movie 3">
-                    <div class="movie-info">
-                        <h3 class="movie-title">Крестный отец</h3>
-                        <div class="movie-genre">Драма • Детектив • Криминал</div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <img src="pulp.png" alt="Movie 4">
-                    <div class="movie-info">
-                        <h3 class="movie-title">Криминальное чтиво </h3>
-                        <div class="movie-genre">Криминал • Драма • Комедия</div>
-                    </div>
+        <!-- Контент страниц -->
+        <div class="content-container">
+            <div class="tab-content" id="home">
+                <div class="movies-container">
+                    <!-- Контейнеры для фильмов будут добавлены динамически -->
                 </div>
             </div>
-        </div>
 
         <!--Scroller-->
-        <div class="tab-content" id="scroll-page" style="display: none;">
+        <div class="tab-content" id="scroll-page"  style="display: none;">
             <div class="reels-container">
                 <div class="reels">
 
@@ -475,11 +446,13 @@
                 tabLinks.forEach(tab => tab.classList.remove('active'));
                 e.target.classList.add('active');
 
-                tabContents.forEach(content => content.style.display = 'none');
-                document.getElementById(targetTab).style.display = 'block';
+                    tabContents.forEach(content => content.style.display = 'none');
+                    document.getElementById(targetTab).style.display = 'block';
+                });
             });
         });
-    });
-</script>
+    </script>
+    <script src="moviesLoader.js"></script>
+
 </body>
 </html>
