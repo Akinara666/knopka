@@ -4,8 +4,9 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
 import datetime
 import secrets
-
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 # Настройки баз данных
 DATABASE_URL_MAIN = "sqlite:///mydatabase.db"  # Основная база данных
@@ -51,7 +52,6 @@ BaseAuth.metadata.create_all(engine_auth)
 def login_user(username, password):
     session_main = SessionMain()
     user = session_main.query(UserLogin).filter_by(username=username).first()
-
     if user:
         # Конвертируем строку хэша пароля в байты, если это строка
         password_hash = user.password_hash.encode() if isinstance(user.password_hash, str) else user.password_hash
@@ -91,15 +91,6 @@ def login_user(username, password):
     session_main.close()
     return None
 
-
-# Основной код для тестирования функции логина
-if __name__ == "__main__":
-    # Пример данных для логина
-    username = "fed"  # замените на имя пользователя для тестирования
-    password = "fed"  # замените на пароль для тестирования
-
-    login_user(username, password)
-
 # Эндпоинт для страницы логина (HTML форма)
 @app.route('/login', methods=['GET'])
 def login_form():
@@ -109,11 +100,11 @@ def login_form():
 # Эндпоинт для логина пользователя (POST запрос)
 @app.route('/login', methods=['POST'])
 def login_request():
-    username = request.form.get('loginUsername')
-    password = request.form.get('loginPassword')
+    username = request.json.get('loginUsername')
+    password = request.json.get('loginPassword')
 
     result = login_user(username, password)
-    if 'error' in result:
+    if not result:
         return jsonify(result), 400
     else:
         return jsonify(result), 200

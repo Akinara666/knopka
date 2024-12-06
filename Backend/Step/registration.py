@@ -2,10 +2,11 @@ from flask import Flask, request, jsonify, render_template
 from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, func
 from sqlalchemy.orm import sessionmaker, declarative_base
 from bcrypt import hashpw, gensalt
+from flask_cors import CORS
 
 # Настройка Flask
 app = Flask(__name__)
-
+CORS(app)
 # Настройка базы данных SQLite
 engine = create_engine('sqlite:///mydatabase.db', echo=True)
 
@@ -57,7 +58,6 @@ def register_user(email: str, password: str, username: str):
         raise ValueError("Email уже занят")
     if is_username_taken(username):
         raise ValueError("Имя пользователя уже занято")
-
     hashed_password = hash_password(password)
 
     # Создание нового пользователя
@@ -69,20 +69,16 @@ def register_user(email: str, password: str, username: str):
 
     return {"message": f"Пользователь {username} успешно зарегистрирован."}
 
-# Эндпоинт для страницы регистрации (HTML форма)
-@app.route('/signup', methods=['GET'])
-def signup_form():
-    return render_template('signup.html')
 
 # Эндпоинт для регистрации пользователя (POST запрос)
 @app.route('/register', methods=['POST'])
 def register():
     # Получаем данные из формы
-    username = request.form.get('signupUsername')
-    email = request.form.get('signupEmail')
-    password = request.form.get('signupPassword')
-    confirm_password = request.form.get('signupConfirmPassword')
-
+    username = request.json.get('username')
+    email = request.json.get('email')
+    password = request.json.get('password')
+    confirm_password = request.json.get('confirm_password')
+    print(username, email, password, confirm_password)
     # Проверка на совпадение паролей
     if password != confirm_password:
         return jsonify({"error": "Пароли не совпадают"}), 400

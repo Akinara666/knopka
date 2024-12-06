@@ -8,26 +8,27 @@
     <link rel="stylesheet" href="background.css">
 </head>
 <body>
-    <!-- Начальный экран -->
-    <div class="intro">
-        <h1>Погрузись в мир кино!</h1>
-    </div>
+<!-- Начальный экран -->
+<div class="intro">
+    <h1>Погрузись в мир кино!</h1>
+</div>
 
-    <!-- Затемнение фона -->
-    <div class="overlay"></div>
+<!-- Затемнение фона -->
+<div class="overlay"></div>
 
-  <!-- Основной контент -->
+<!-- Основной контент -->
 <div class="main-content">
     <header>
         <div class="header-left">
             <div class="menu-toggle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="30" viewBox="0 0 40 30">
-                    <rect width="40" height="6" fill="#ff69b4" rx="3" />
-                    <rect y="12" width="40" height="6" fill="#ff69b4" rx="3" />
-                    <rect y="24" width="40" height="6" fill="#ff69b4" rx="3" />
+                    <rect width="40" height="6" fill="#ff69b4" rx="3"/>
+                    <rect y="12" width="40" height="6" fill="#ff69b4" rx="3"/>
+                    <rect y="24" width="40" height="6" fill="#ff69b4" rx="3"/>
                 </svg>
             </div>
-            <button class='glowing-btn'><span class='glowing-txt'>K<span class='faulty-letter'>N</span>OPKA</span></button>
+            <button class='glowing-btn'><span class='glowing-txt'>K<span class='faulty-letter'>N</span>OPKA</span>
+            </button>
         </div>
         <div class="search-container">
             <input type="text" class="search-bar" placeholder="Найди свой любимый фильм...">
@@ -60,7 +61,7 @@
                     <img src="fight.png" alt="Movie 1">
                     <div class="movie-info">
                         <h3 class="movie-title">Бойцовский клуб</h3>
-                        <div class="movie-genre">Боевик • Драма • Криминал </div>
+                        <div class="movie-genre">Боевик • Драма • Криминал</div>
                     </div>
                 </div>
                 <div class="movie-card">
@@ -74,7 +75,7 @@
                     <img src="papa.jpg" alt="Movie 3">
                     <div class="movie-info">
                         <h3 class="movie-title">Крестный отец</h3>
-                        <div class="movie-genre">Драма • Детектив • Криминал </div>
+                        <div class="movie-genre">Драма • Детектив • Криминал</div>
                     </div>
                 </div>
                 <div class="movie-card">
@@ -93,7 +94,7 @@
                 <div class="reels">
 
                     <div class="reel">
-                        
+
                         <div class="reel-header">
                             <h1>Pulp Fiction</h1>
                         </div>
@@ -125,7 +126,8 @@
                                 <div class="category"><h4>Drama</h4></div>
                             </div>
                             <div class="description">
-                                <h4>The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.</h4>
+                                <h4>The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner
+                                    bandits intertwine in four tales of violence and redemption.</h4>
                             </div>
                         </div>
                     </div>
@@ -163,7 +165,8 @@
                                 <div class="category"><h4>Crime</h4></div>
                             </div>
                             <div class="description">
-                                <h4>The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.</h4>
+                                <h4>The aging patriarch of an organized crime dynasty transfers control of his
+                                    clandestine empire to his reluctant son.</h4>
                             </div>
                         </div>
                     </div>
@@ -200,7 +203,8 @@
                                 <div class="category"><h4>Drama</h4></div>
                             </div>
                             <div class="description">
-                                <h4>An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.</h4>
+                                <h4>An insomniac office worker and a devil-may-care soap maker form an underground fight
+                                    club that evolves into much more.</h4>
                             </div>
                         </div>
                     </div>
@@ -268,160 +272,214 @@
     </div>
 </div>
 
-    <!-- Модальное окно для входа -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Log In</h2>
-            <form>
-                <label for="loginUsername">Логин</label>
-                <input type="text" id="loginUsername" name="loginUsername" required>
-                <label for="loginPassword">Пароль</label>
-                <input type="password" id="loginPassword" name="loginPassword" required>
-                <button type="submit">Войти</button>
-            </form>
-        </div>
+<!-- Модальное окно для входа -->
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Log In</h2>
+        <form>
+            <label for="loginUsername">Логин</label>
+            <input type="text" id="loginUsername" name="loginUsername" required>
+            <label for="loginPassword">Пароль</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
+            <button type="submit">Войти</button>
+        </form>
     </div>
+</div>
 
-    <!-- Модальное окно для регистрации -->
-    <div class="modal" id="signupModal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Sign Up</h2>
-            <form>
-                <label for="signupUsername">Имя пользователя</label>
-                <input type="text" id="signupUsername" name="signupUsername" required>
-                <label for="signupLogin">Логин</label>
-                <input type="text" id="signupLogin" name="signupLogin" required>
-                <label for="signupPassword">Пароль</label>
-                <input type="password" id="signupPassword" name="signupPassword" required>
-                <label for="signupConfirmPassword">Подтвердите пароль</label>
-                <input type="password" id="signupConfirmPassword" name="signupConfirmPassword" required>
-                <button type="submit">Зарегистрироваться</button>
-            </form>
-        </div>
+<!-- Модальное окно для регистрации -->
+<div class="modal" id="signupModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sign Up</h2>
+        <form>
+            <label for="signupUsername">Имя пользователя</label>
+            <input type="text" id="signupUsername" name="signupUsername" required>
+            <label for="signupLogin">Логин</label>
+            <input type="text" id="signupLogin" name="signupLogin" required>
+            <label for="signupPassword">Пароль</label>
+            <input type="password" id="signupPassword" name="signupPassword" required>
+            <label for="signupConfirmPassword">Подтвердите пароль</label>
+            <input type="password" id="signupConfirmPassword" name="signupConfirmPassword" required>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
     </div>
+</div>
 
-    <script>
-        function observeVideos() {
-            const videos = document.querySelectorAll('video');
+<script>
+    document.querySelector('#signupModal form').addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.currentTime = 0;
-                        entry.target.play();
-                    } else {
-                        entry.target.pause();
-                    }
-                });
-            }, { threshold: 0.5 }); // Adjust threshold as needed
+        const username = document.querySelector('#signupUsername').value;
+        const email = document.querySelector('#signupLogin').value;
+        const password = document.querySelector('#signupPassword').value;
+        const confirmPassword = document.querySelector('#signupConfirmPassword').value;
 
-            videos.forEach(video => {
-                observer.observe(video);
-                video.addEventListener('ended', () => {
-                    video.currentTime = 0;
-                    video.play();
-                });
-            });
+        const response = await fetch('http://localhost:5000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password,
+                confirm_password: confirmPassword
+            })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Регистрация успешна!');
+        } else {
+            alert(`Ошибка: ${result.error}`);
         }
+    });
 
-        // Call the function to start observing
-        observeVideos();
+    document.querySelector('#loginModal form').addEventListener('submit', async (event) => {
+        event.preventDefault();
 
+        const username = document.querySelector('#loginUsername').value;
+        const password = document.querySelector('#loginPassword').value;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const intro = document.querySelector('.intro');
-            const mainContent = document.querySelector('.main-content');
-            const menuToggle = document.querySelector('.menu-toggle');
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            const loginBtn = document.querySelector('.login-btn');
-            const signupBtn = document.querySelector('.signup-btn');
-            const loginModal = document.getElementById('loginModal');
-            const signupModal = document.getElementById('signupModal');
-            const closeBtns = document.querySelectorAll('.close');
-            const tabLinks = document.querySelectorAll('.sidebar-menu a');
-            const tabContents = document.querySelectorAll('.tab-content');
+        const response = await fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                loginUsername: username,
+                loginPassword: password
+            })
+        });
 
-            
-            // Обработка интро
+        const result = await response.json();
+        if (response.ok) {
+            // Сохраняем токен в localStorage
+            localStorage.setItem('authToken', result.token);
+            alert('Вы успешно вошли!');
+        } else {
+            alert('Ошибка');
+        }
+    });
 
-            // Функция для запуска анимации через 1 секунду
-            function startIntroAnimation() {
-                const introElement = document.querySelector('.intro');
-                setTimeout(() => {
-                    introElement.classList.add('hidden');
-                }, 3000); // 3000 миллисекунд = 1 секунда
-                mainContent.classList.add('visible');
+    function observeVideos() {
+        const videos = document.querySelectorAll('video');
 
-            }
-
-            // Запускаем функцию после полной загрузки страницы
-            window.addEventListener('load', startIntroAnimation);
-
-            intro.addEventListener('click', () => {
-                intro.classList.add('hidden');
-                mainContent.classList.add('visible');
-                window.scrollTo(0, 100);
-            });
-
-            // Обработка бокового меню
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                sidebar.classList.toggle('active');
-                overlay.classList.toggle('active');
-            });
-
-            // Закрытие меню при клике на overlay
-            overlay.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            });
-
-            document.addEventListener('click', () => {
-                if (!overlay.contains(event.target) && !toggleButton.contains(event.target)) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.currentTime = 0;
+                    entry.target.play();
+                } else {
+                    entry.target.pause();
                 }
             });
+        }, {threshold: 0.5}); // Adjust threshold as needed
 
-            // Открытие модального окна для входа
-            loginBtn.addEventListener('click', () => {
-                loginModal.style.display = 'block';
-                overlay.style.display = 'block';
-            });
-
-            // Открытие модального окна для регистрации
-            signupBtn.addEventListener('click', () => {
-                signupModal.style.display = 'block';
-                overlay.style.display = 'block';
-            });
-
-            // Закрытие модальных окон
-            closeBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    loginModal.style.display = 'none';
-                    signupModal.style.display = 'none';
-                });
-            });
-
-            // Обработка переключения вкладок
-            tabLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetTab = e.target.getAttribute('data-tab');
-
-                    tabLinks.forEach(tab => tab.classList.remove('active'));
-                    e.target.classList.add('active');
-
-                    tabContents.forEach(content => content.style.display = 'none');
-                    document.getElementById(targetTab).style.display = 'block';
-                });
+        videos.forEach(video => {
+            observer.observe(video);
+            video.addEventListener('ended', () => {
+                video.currentTime = 0;
+                video.play();
             });
         });
-    </script>
+    }
+
+    // Call the function to start observing
+    observeVideos();
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const intro = document.querySelector('.intro');
+        const mainContent = document.querySelector('.main-content');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        const loginBtn = document.querySelector('.login-btn');
+        const signupBtn = document.querySelector('.signup-btn');
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        const closeBtns = document.querySelectorAll('.close');
+        const tabLinks = document.querySelectorAll('.sidebar-menu a');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+
+        // Обработка интро
+
+        // Функция для запуска анимации через 1 секунду
+        function startIntroAnimation() {
+            const introElement = document.querySelector('.intro');
+            setTimeout(() => {
+                introElement.classList.add('hidden');
+            }, 3000); // 3000 миллисекунд = 1 секунда
+            mainContent.classList.add('visible');
+
+        }
+
+        // Запускаем функцию после полной загрузки страницы
+        window.addEventListener('load', startIntroAnimation);
+
+        intro.addEventListener('click', () => {
+            intro.classList.add('hidden');
+            mainContent.classList.add('visible');
+            window.scrollTo(0, 100);
+        });
+
+        // Обработка бокового меню
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        // Закрытие меню при клике на overlay
+        overlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        document.addEventListener('click', () => {
+            if (!overlay.contains(event.target) && !toggleButton.contains(event.target)) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+
+            }
+        });
+
+        // Открытие модального окна для входа
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        // Открытие модального окна для регистрации
+        signupBtn.addEventListener('click', () => {
+            signupModal.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        // Закрытие модальных окон
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                signupModal.style.display = 'none';
+            });
+        });
+
+        // Обработка переключения вкладок
+        tabLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetTab = e.target.getAttribute('data-tab');
+
+                tabLinks.forEach(tab => tab.classList.remove('active'));
+                e.target.classList.add('active');
+
+                tabContents.forEach(content => content.style.display = 'none');
+                document.getElementById(targetTab).style.display = 'block';
+            });
+        });
+    });
+</script>
 </body>
 </html>
