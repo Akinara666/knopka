@@ -193,8 +193,8 @@
                 </div>
 
                 <div class="profile-info">
-                    <p>Email: evilarthas@mail.com</p>
-                    <p>Дата регистрации: 23.11.2024</p>
+                    <p>Email: <span id="profile-email">evilarthas@mail.com</span></p>
+                    <p>Дата регистрации: <span id="profile-registration-date">23.11.2024</span></p>
                 </div>
             </div>
         </div>
@@ -278,6 +278,32 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Функция для обновления данных профиля
+    function updateProfile() {
+        fetch('http://localhost:5000/get_profile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Обновляем данные на странице
+            document.querySelector('.profile-name').textContent = data.name;
+            document.getElementById('profile-email').textContent = data.email;
+            document.getElementById('profile-registration-date').textContent = data.registration_date;
+        })
+        .catch(error => console.error('Ошибка:', error));
+    }
+
+    // Пример: добавляем кнопку для ручного обновления профиля
+    const updateButton = document.createElement('button');
+    updateButton.textContent = 'Обновить профиль';
+    updateButton.addEventListener('click', updateProfile);
+    document.querySelector('.profile-container').appendChild(updateButton);
+    });
+
     document.querySelector('#signupModal form').addEventListener('submit', async (event) => {
         event.preventDefault();
 
@@ -325,7 +351,7 @@
         const result = await response.json();
         if (response.ok) {
             // Сохраняем токен в localStorage
-            localStorage.setItem('authToken', result.token);
+            localStorage.setItem('authToken', result);
             alert('Вы успешно вошли!');
         } else {
             alert('Ошибка');
