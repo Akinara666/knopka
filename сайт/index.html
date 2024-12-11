@@ -42,8 +42,8 @@
     <!-- Боковое меню -->
     <aside class="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="#"  data-tab="scroll-page">Рекомендации</a></li>
-            <li><a href="#"  class="active" data-tab="home">Поиск</a></li>
+            <li><a href="#" data-tab="scroll-page">Рекомендации</a></li>
+            <li><a href="#" class="active" data-tab="home">Поиск</a></li>
             <li><a href="#" data-tab="profile">Профиль</a></li>
             <li><a href="#" data-tab="history">История</a></li>
             <li><a href="#" data-tab="liked">Понравившиеся</a></li>
@@ -51,16 +51,16 @@
         </ul>
     </aside>
 
-        <!-- Контент страниц -->
-        <div class="content-container">
-            <div class="tab-content" id="home">
-                <div class="movies-container">
-                    <!-- Контейнеры для фильмов будут добавлены динамически -->
-                </div>
+    <!-- Контент страниц -->
+    <div class="content-container">
+        <div class="tab-content" id="home">
+            <div class="movies-container">
+                <!-- Контейнеры для фильмов будут добавлены динамически -->
             </div>
+        </div>
 
         <!-- Scroller -->
-        <div class="tab-content" id="scroll-page"  style="display: none;">
+        <div class="tab-content" id="scroll-page" style="display: none;">
             <div class="reels-container">
                 <div class="reels">
 
@@ -277,208 +277,6 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    // Функция для обновления данных профиля
-    function updateProfile() {
-        fetch('http://localhost:5000/get_profile', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Обновляем данные на странице
-            document.querySelector('.profile-name').textContent = data.name;
-            document.getElementById('profile-email').textContent = data.email;
-            document.getElementById('profile-registration-date').textContent = data.registration_date;
-        })
-        .catch(error => console.error('Ошибка:', error));
-    }
-
-    // Пример: добавляем кнопку для ручного обновления профиля
-    const updateButton = document.createElement('button');
-    updateButton.textContent = 'Обновить профиль';
-    updateButton.addEventListener('click', updateProfile);
-    document.querySelector('.profile-container').appendChild(updateButton);
-    });
-
-    document.querySelector('#signupModal form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const username = document.querySelector('#signupUsername').value;
-        const email = document.querySelector('#signupLogin').value;
-        const password = document.querySelector('#signupPassword').value;
-        const confirmPassword = document.querySelector('#signupConfirmPassword').value;
-
-        const response = await fetch('http://localhost:5000/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username,
-                email,
-                password,
-                confirm_password: confirmPassword
-            })
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-            alert('Регистрация успешна!');
-        } else {
-            alert(`Ошибка: ${result.error}`);
-        }
-    });
-
-    document.querySelector('#loginModal form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const username = document.querySelector('#loginUsername').value;
-        const password = document.querySelector('#loginPassword').value;
-
-        const response = await fetch('http://localhost:5000/login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                loginUsername: username,
-                loginPassword: password
-            })
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-            // Сохраняем токен в localStorage
-            localStorage.setItem('authToken', result);
-            alert('Вы успешно вошли!');
-        } else {
-            alert('Ошибка');
-        }
-    });
-
-    function observeVideos() {
-        const videos = document.querySelectorAll('video');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.currentTime = 0;
-                    entry.target.play();
-                } else {
-                    entry.target.pause();
-                }
-            });
-        }, {threshold: 0.5}); // Adjust threshold as needed
-
-        videos.forEach(video => {
-            observer.observe(video);
-            video.addEventListener('ended', () => {
-                video.currentTime = 0;
-                video.play();
-            });
-        });
-    }
-
-    // Call the function to start observing
-    observeVideos();
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const intro = document.querySelector('.intro');
-        const mainContent = document.querySelector('.main-content');
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.overlay');
-        const loginBtn = document.querySelector('.login-btn');
-        const signupBtn = document.querySelector('.signup-btn');
-        const loginModal = document.getElementById('loginModal');
-        const signupModal = document.getElementById('signupModal');
-        const closeBtns = document.querySelectorAll('.close');
-        const tabLinks = document.querySelectorAll('.sidebar-menu a');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-
-        // Обработка интро
-
-        // Функция для запуска анимации через 1 секунду
-        function startIntroAnimation() {
-            const introElement = document.querySelector('.intro');
-            setTimeout(() => {
-                introElement.classList.add('hidden');
-            }, 3000); // 3000 миллисекунд = 1 секунда
-            mainContent.classList.add('visible');
-
-        }
-
-        // Запускаем функцию после полной загрузки страницы
-        window.addEventListener('load', startIntroAnimation);
-
-        intro.addEventListener('click', () => {
-            intro.classList.add('hidden');
-            mainContent.classList.add('visible');
-            window.scrollTo(0, 100);
-        });
-
-        // Обработка бокового меню
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-
-        // Закрытие меню при клике на overlay
-        overlay.addEventListener('click', () => {
-            menuToggle.classList.remove('active');
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        document.addEventListener('click', () => {
-            if (!overlay.contains(event.target) && !toggleButton.contains(event.target)) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-
-            }
-        });
-
-        // Открытие модального окна для входа
-        loginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'block';
-            overlay.style.display = 'block';
-        });
-
-        // Открытие модального окна для регистрации
-        signupBtn.addEventListener('click', () => {
-            signupModal.style.display = 'block';
-            overlay.style.display = 'block';
-        });
-
-        // Закрытие модальных окон
-        closeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                loginModal.style.display = 'none';
-                signupModal.style.display = 'none';
-            });
-        });
-
-        // Обработка переключения вкладок
-        tabLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetTab = e.target.getAttribute('data-tab');
-
-                tabLinks.forEach(tab => tab.classList.remove('active'));
-                e.target.classList.add('active');
-
-                    tabContents.forEach(content => content.style.display = 'none');
-                    document.getElementById(targetTab).style.display = 'block';
-                });
-            });
-        });
-    </script>
-    <script src="moviesLoader.js"></script>
-
+<script src="main.js"></script>
 </body>
 </html>
