@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const historyList = document.querySelector('.history-list');
     const likedList = document.querySelector('.liked-list');
     const watchLaterList = document.querySelector('.watch-later-list');
+    const reels = document.querySelector('.reels');
 
     // Helper Functions
 
@@ -140,11 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
      *  - rating: number (movie rating)
      */
     function renderMovies(container, movies) {
-        // Clear the container before rendering new movies
-        container.innerHTML = '';
 
-        const reels = document.createElement('div');
-        reels.classList.add('reels');
+        const reels = container.querySelector('.reels');
 
         // Add each movie as a reel
         movies.forEach((movie, index) => {
@@ -253,11 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
             reels.appendChild(reel);
         });
 
-        // Append the reels to the reels container
-        reelsContainer.appendChild(reels);
-
-        // Add the reels container to the provided container
-        container.appendChild(reelsContainer);
     }
 
     /**
@@ -280,6 +273,49 @@ document.addEventListener('DOMContentLoaded', () => {
             renderMovies(reelsContainer, []);
         }
 
+    }
+
+    let isLoading = false; // To prevent duplicate fetch calls
+
+    /**
+     * Append new movies to the scroller dynamically.
+     */
+    async function loadMoreMovies() {
+        if (isLoading) return;
+        isLoading = true;
+
+        try {
+            const response = await authFetch('http://localhost:5000/api/movies/recommendations', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const movies = await response.json();
+                renderMovies(reelsContainer, movies);
+            } else {
+                console.error('Failed to fetch additional movies');
+            }
+        } catch (error) {
+            console.error('Error fetching more movies:', error);
+        } finally {
+            isLoading = false;
+        }
+    }
+
+    /**
+     * Check if user scrolled near the bottom of the scroller.
+     */
+    function handleScroll() {
+        const {scrollTop, scrollHeight, clientHeight} = reels;
+        console.log(`scrollTop: ${scrollTop}, scrollHeight: ${scrollHeight}, clientHeight: ${clientHeight}`);
+
+        if (scrollTop + clientHeight >= scrollHeight) {
+            console.log('Near bottom, loading more content...');
+            loadMoreMovies();
+        }
     }
 
     /**
@@ -375,13 +411,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners
-    // Handle intro screen click
-    intro.addEventListener('click', () => {
-        intro.classList.add('hidden');
-        mainContent.classList.add('visible');
-        window.scrollTo(0, 0);
-        showTab('home');
-    });
 
     // Handle window load to start intro animation
     window.addEventListener('load', () => {
@@ -389,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
             intro.classList.add('hidden');
             mainContent.classList.add('visible');
             showTab('home');
-        }, 3000); // Adjust timing as needed
+        }, 100); // Adjust timing as needed
     });
 
     // Handle menu toggle
@@ -446,8 +475,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') {
             handleSearch();
         }
-    });
 
-    // Initialize the app
-    init();
+    });
+    // Attach scroll event listener to the scroller
+    reels.addEventListener('scroll', handleScroll);
 });
