@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify
 from recommendations.model import MovieRecommender  # Path to your MovieRecommender class
 from models import db, Movie, UserLikes
 from utils.helpers import login_required
@@ -44,10 +44,11 @@ def generate_recommendations(user_id):
 
         # Convert favorite movies to a dictionary {movieId: rating}
         user_ratings = {movie.movie_id: 5.0 for movie in favorite_movies}  # Default rating is 5.0
-
+        print(user_ratings)
         # Generate recommendations using the recommender system
         recommendations = recommender.recommend(user_ratings)
         print(recommendations)
+
         # Extract tmdbId for each recommended movie from top_1000_imdb_movies.csv
         recommendations = recommendations.merge(
             top_1000_imdb_movies[['movieId', 'tmdbId']],
@@ -55,14 +56,13 @@ def generate_recommendations(user_id):
             right_on='movieId',
             how='left'
         )
-        print(recommendations)
         # Drop rows where tmdbId is missing
         recommendations = recommendations.dropna(subset=['tmdbId'])
 
         # Convert tmdbId to integer
         recommendations['tmdbId'] = recommendations['tmdbId'].astype(int)
 
-        print(recommendations)
+
 
         # Fetch movie details from the Movie database table
         tmdb_ids = recommendations['tmdbId'].tolist()
@@ -82,6 +82,52 @@ def generate_recommendations(user_id):
             })
 
         return jsonify(movie_list), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@movies_bp.route('/like', methods=['POST'])
+@login_required
+def add_to_favorites(user_id):
+    """
+    Add a movie to the user's liked movies.
+
+    Args:
+        user_id (int): The authenticated user's ID, injected by the login_required decorator.
+
+    Request Body:
+        {
+            "movieId": 123  # The ID of the movie to add to favorites
+        }
+
+    Returns:
+        JSON: A success message or error response.
+    """
+    try:
+        # Parse the request JSON
+        data = request.get_json()
+        if not data or "movieId" not in data:
+            return jsonify({"error": "Invalid request. 'movieId' is required."}), 400
+
+        movie_id = data["movieId"]
+
+        # Check if the movie exists in the Movie table
+        movie = Movie.query.filter_by(id=movie_id).first()
+        if not movie:
+            return jsonify({"error": f"Movie with ID {movie_id} not found."}), 404
+
+        # Check if the movie is already in the user's favorites
+        existing_favorite = UserLikes.query.filter_by(user_id=user_id, movie_id=movie_id).first()
+        if existing_favorite:
+            return jsonify({"error": "This movie is already in your favorites."}), 409
+
+        # Add the movie to the user's favorites
+        new_favorite = UserLikes(user_id=user_id, movie_id=movie_id)
+        db.session.add(new_favorite)
+        db.session.commit()
+
+        return jsonify({"message": f"Movie '{movie.title}' added to your favorites."}), 201
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

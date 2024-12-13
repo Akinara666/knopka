@@ -141,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
      *  - rating: number (movie rating)
      */
     function renderMovies(container, movies) {
-
         const reels = container.querySelector('.reels');
 
         // Add each movie as a reel
@@ -174,7 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
             trailerHolder.classList.add('trailer-holder');
             const video = document.createElement('iframe');
             video.id = `video${index + 1}`;
-            video.src = movie.trailer_url ? `${movie.trailer_url.replace("watch?v=", "embed/")}?autoplay=1&mute=1` : '';
+            video.src = movie.trailer_url
+                ? `${movie.trailer_url.replace("watch?v=", "embed/")}?autoplay=1&mute=1`
+                : '';
             video.width = "560";
             video.height = "315";
             video.setAttribute('frameborder', '0');
@@ -249,9 +250,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Add the reel to the reels container
             reels.appendChild(reel);
-        });
 
+            // Add event listener for the "Like" button
+            likeBtn.addEventListener('click', async () => {
+                try {
+                    const response = await authFetch('/api/movies/like', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({movieId: movie.id}),
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert(result.message);
+                    } else {
+                        alert(result.error);
+                    }
+                } catch (error) {
+                    console.error('Error liking the movie:', error);
+                    alert('An error occurred while liking the movie.');
+                }
+            });
+        });
     }
+
 
     /**
      * Load scroller content (recommended movies)
