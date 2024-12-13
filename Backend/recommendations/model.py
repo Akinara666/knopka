@@ -1,82 +1,172 @@
+import pandas as pd
 import joblib
-from surprise import SVD, Dataset, Reader
 
-MODEL_PATH = "best_svd_model_with_mappings.pkl"  # Path to your saved model file
+# Paths to required files
+model_file = 'data/knn_model.joblib'  # Path to your saved KNN model
+movies_file = 'data/movies.csv'  # Path to movies.csv
+filtered_ratings_file = 'data/filtered_ratings.csv'  # Path to your filtered ratings CSV
 
-class RecommendationModel:
-    def __init__(self):
-        """
-        Initialize the RecommendationModel by loading the serialized model and mappings.
-        """
-        self.model = None
-        self.user_id_to_index = {}
-        self.movie_id_to_index = {}
-        self.index_to_user_id = {}
-        self.index_to_movie_id = {}
-        self._load_model()
 
-    def _load_model(self):
+class MovieRecommender:
+    """
+    A movie recommendation system using a pre-trained KNN-based collaborative filtering model.
+
+    Attributes:
+        model_path (str): Path to the saved KNN model file.
+        movies_path (str): Path to the MovieLens movies.csv file.
+        filtered_ratings_path (str): Path to the filtered ratings CSV file.
+        top_n (int): Number of recommendations to return.
+    """
+
+    def __init__(self, model_path, movies_path, filtered_ratings_path, top_n=10):
         """
-        Load the serialized model and mappings using joblib.
+        Initializes the MovieRecommender by loading the model and necessary data.
+
+        Args:
+            model_path (str): Path to the saved KNN model file.
+            movies_path (str): Path to the MovieLens movies.csv file.
+            filtered_ratings_path (str): Path to the filtered ratings CSV file.
+            top_n (int, optional): Number of recommendations to return. Defaults to 10.
         """
+        self.model_path = model_path
+        self.movies_path = movies_path
+        self.filtered_ratings_path = filtered_ratings_path
+        self.top_n = top_n
+
+        # Load the pre-trained KNN model
         try:
-            model_data = joblib.load(MODEL_PATH)
-            self.model = model_data["model"]
-            self.user_id_to_index = model_data["user_id_to_index"]
-            self.movie_id_to_index = model_data["movie_id_to_index"]
-            self.index_to_user_id = model_data["index_to_user_id"]
-            self.index_to_movie_id = model_data["index_to_movie_id"]
-            print("Model and mappings loaded successfully.")
+            self.algo = joblib.load(self.model_path)
+            print(f"Model loaded successfully from {self.model_path}.")
+        except FileNotFoundError:
+            raise Exception(f"Model file not found at {self.model_path}.")
         except Exception as e:
-            print(f"Error loading model and mappings: {e}")
+            raise Exception(f"An error occurred while loading the model: {e}")
 
-    def get_recommendations(self, liked_movies, top_n=10):
+        # Load the movies DataFrame to map movieId to titles
+        try:
+            self.movies = pd.read_csv(self.movies_path)
+            if not {'movieId', 'title'}.issubset(self.movies.columns):
+                raise ValueError("movies.csv must contain 'movieId' and 'title' columns.")
+            print(f"Movies data loaded successfully from {self.movies_path}.")
+        except FileNotFoundError:
+            raise Exception(f"Movies file not found at {self.movies_path}.")
+        except Exception as e:
+            raise Exception(f"An error occurred while loading movies data: {e}")
+
+        # Load the filtered ratings to compute global mean
+        try:
+            self.filtered_ratings = pd.read_csv(self.filtered_ratings_path)
+            if 'rating' not in self.filtered_ratings.columns:
+                raise ValueError("Filtered ratings must contain a 'rating' column.")
+            self.global_mean = self.filtered_ratings['rating'].mean()
+            print(f"Filtered ratings loaded successfully from {self.filtered_ratings_path}.")
+            print(f"Global mean rating computed: {self.global_mean:.2f}")
+        except FileNotFoundError:
+            raise Exception(f"Filtered ratings file not found at {self.filtered_ratings_path}.")
+        except Exception as e:
+            raise Exception(f"An error occurred while loading filtered ratings: {e}")
+
+    def recommend(self, new_user_ratings):
         """
-        Generate movie recommendations based on user-liked movies.
-        Recommendations are made using the SVD model's predictions.
+        Generates top-N movie recommendations for a new user based on their ratings.
 
-        :param liked_movies: List of movie IDs the user likes.
-        :param top_n: Number of recommendations to generate.
-        :return: List of recommended movie IDs.
+        Args:
+            new_user_ratings (dict): A dictionary where keys are movieIds and values are ratings.
+                                     Example: {50: 5.0, 181: 4.0, 258: 3.0}
+
+        Returns:
+            pd.DataFrame: A DataFrame containing the top-N recommended movies with their titles and predicted ratings.
         """
-        if not self.model:
-            raise ValueError("Model is not loaded.")
+        # Validate input
+        if not isinstance(new_user_ratings, dict):
+            raise ValueError("new_user_ratings must be a dictionary of {movieId: rating}.")
 
-        # Check if liked_movies contains valid movie IDs
-        if not liked_movies:
-            raise ValueError("No liked movies provided for recommendations.")
+        # Extract all movieIds from the training set
+        all_items = set(self.filtered_ratings['movieId'].unique())
+        rated_items = set(new_user_ratings.keys())
+        candidate_items = all_items - rated_items
 
-        # Ensure liked movies exist in the model's movie mappings
-        valid_liked_movies = [
-            movie_id for movie_id in liked_movies if movie_id in self.movie_id_to_index
-        ]
-        if not valid_liked_movies:
-            raise ValueError("None of the liked movies are recognized by the model.")
+        # Initialize a list to store predictions
+        predictions_for_new_user = []
 
-        # Predict ratings for all unseen movies
-        candidate_movie_ids = set(self.movie_id_to_index.keys()) - set(valid_liked_movies)
-        predictions = []
+        # Iterate over each candidate movie to predict the rating
+        for item_id in candidate_items:
+            # Check if the item_id exists in the training set
+            if item_id not in self.algo.trainset._raw2inner_id_items:
+                continue  # Skip if the movie was not in the training set
 
-        for candidate_movie_id in candidate_movie_ids:
-            # Predict rating based on the average score of liked movies
-            candidate_inner_id = self.movie_id_to_index[candidate_movie_id]
-            score = 0
-            for liked_movie_id in valid_liked_movies:
-                liked_inner_id = self.movie_id_to_index[liked_movie_id]
-                prediction = self.model.predict(0, candidate_inner_id)  # Predict for a dummy user
-                score += prediction.est  # `est` is the predicted rating
+            try:
+                # Convert raw movieId to inner id used by Surprise
+                inner_iid = self.algo.trainset.to_inner_iid(item_id)
+            except ValueError:
+                # If the movieId is unknown, skip
+                continue
 
-            # Average the scores
-            score /= len(valid_liked_movies)
-            predictions.append((candidate_movie_id, score))
+            # Get the top-k similar items (neighbors)
+            k = 1000  # You can adjust k based on your preference
+            neighbors = self.algo.get_neighbors(inner_iid, k=k)
 
-        # Sort by predicted rating in descending order and return the top N movie IDs
-        predictions.sort(key=lambda x: x[1], reverse=True)
-        return [movie_id for movie_id, _ in predictions[:top_n]]
+            numer = 0.0
+            denom = 0.0
+            for nb_iid in neighbors:
+                nb_raw_iid = self.algo.trainset.to_raw_iid(nb_iid)
+                if nb_raw_iid in new_user_ratings:
+                    sim_score = self.algo.sim[inner_iid][nb_iid]
+                    numer += sim_score * new_user_ratings[nb_raw_iid]
+                    denom += abs(sim_score)
 
+            if denom > 0:
+                est_rating = numer / denom
+            else:
+                # Fallback to global mean rating if no similar items are rated
+                est_rating = self.global_mean
+
+            predictions_for_new_user.append((item_id, est_rating))
+
+        # Convert predictions to DataFrame
+        predictions_df = pd.DataFrame(predictions_for_new_user, columns=['movieId', 'predicted_rating'])
+
+        # Sort the predictions by estimated rating in descending order
+        predictions_df.sort_values(by='predicted_rating', ascending=False, inplace=True)
+
+        # Select the top-N recommendations
+        top_n_recommendations = predictions_df.head(self.top_n)
+
+        # Merge with movies DataFrame to get movie titles
+        top_n_recommendations = top_n_recommendations.merge(
+            self.movies[['movieId', 'title']],
+            on='movieId',
+            how='left'
+        )
+
+        top_n_recommendations['title'] = top_n_recommendations['title'].fillna('Unknown Title')
+
+        # Reorder columns for clarity
+        top_n_recommendations = top_n_recommendations[['movieId', 'title', 'predicted_rating']]
+
+        return top_n_recommendations.reset_index(drop=True)
 
 
 if __name__ == '__main__':
-    model = RecommendationModel()
-    rec = model.get_recommendations([92259, 68954, 99114])
-    print(rec)
+    # Initialize the recommender system
+    recommender = MovieRecommender(
+        model_path=model_file,
+        movies_path=movies_file,
+        filtered_ratings_path=filtered_ratings_file,
+        top_n=10  # Number of recommendations to generate
+    )
+
+    # Define new user ratings (movieId: rating)
+    new_user_ratings = {
+        1: 1.0,
+        2: 5.0,
+        3: 3.0
+    }
+
+    # Generate recommendations
+    recommendations = recommender.recommend(new_user_ratings)
+
+    # Display the recommendations
+    print("Top 10 recommended movies for the new user:")
+    print(recommendations)
+
