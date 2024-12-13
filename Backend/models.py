@@ -13,6 +13,7 @@ class User(db.Model):
 
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tmdbId = db.Column(db.Integer, unique=True, nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
     genres = db.Column(db.String(255), nullable=True)

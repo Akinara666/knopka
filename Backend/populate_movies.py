@@ -85,6 +85,7 @@ def add_movie_to_db(movie, genre_mapping):
     :param movie: A dictionary containing movie details from TMDB.
     :param genre_mapping: Dictionary of {genre_id: genre_name}.
     """
+    tmdb_id = movie.get("id")  # Extract TMDB ID
     title = movie.get("title")
     description = movie.get("overview")
     genres = map_genres_to_ids(movie.get("genre_ids", []), genre_mapping)
@@ -92,12 +93,14 @@ def add_movie_to_db(movie, genre_mapping):
     trailer_url = fetch_trailer(movie.get("id"))  # Fetch the trailer
     rating = movie.get("vote_average", 0.0)
 
-    existing_movie = Movie.query.filter_by(title=title).first()
+    # Check for existing movie by TMDB ID
+    existing_movie = Movie.query.filter_by(tmdbId=tmdb_id).first()
     if existing_movie:
-        print(f"Movie '{title}' already exists in the database.")
+        print(f"Movie '{title}' (TMDB ID: {tmdb_id}) already exists in the database.")
         return
 
     new_movie = Movie(
+        tmdbId=tmdb_id,  # Save the TMDB ID
         title=title,
         description=description,
         genres=genres,
@@ -107,7 +110,7 @@ def add_movie_to_db(movie, genre_mapping):
     )
     db.session.add(new_movie)
     db.session.commit()
-    print(f"Added movie: {title}")
+    print(f"Added movie: {title} (TMDB ID: {tmdb_id})")
 
 
 def populate_movies_database(total_pages=1):
