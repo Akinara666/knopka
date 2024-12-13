@@ -47,7 +47,7 @@ def generate_recommendations(user_id):
 
         # Generate recommendations using the recommender system
         recommendations = recommender.recommend(user_ratings)
-
+        print(recommendations)
         # Extract tmdbId for each recommended movie from top_1000_imdb_movies.csv
         recommendations = recommendations.merge(
             top_1000_imdb_movies[['movieId', 'tmdbId']],
@@ -55,17 +55,18 @@ def generate_recommendations(user_id):
             right_on='movieId',
             how='left'
         )
-
+        print(recommendations)
         # Drop rows where tmdbId is missing
         recommendations = recommendations.dropna(subset=['tmdbId'])
 
         # Convert tmdbId to integer
         recommendations['tmdbId'] = recommendations['tmdbId'].astype(int)
 
+        print(recommendations)
+
         # Fetch movie details from the Movie database table
         tmdb_ids = recommendations['tmdbId'].tolist()
         movies = Movie.query.filter(Movie.tmdbId.in_(tmdb_ids)).all()
-
         # Create a list of movie details
         movie_list = []
         for movie in movies:
