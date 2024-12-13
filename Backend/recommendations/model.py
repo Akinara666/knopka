@@ -1,3 +1,5 @@
+import random
+
 import pandas as pd
 import joblib
 
@@ -103,7 +105,7 @@ class MovieRecommender:
                 continue
 
             # Get the top-k similar items (neighbors)
-            k = 1000  # You can adjust k based on your preference
+            k = random.randint(250, 1000)  # You can adjust k based on your preference
             neighbors = self.algo.get_neighbors(inner_iid, k=k)
 
             numer = 0.0
