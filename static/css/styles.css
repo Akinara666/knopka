@@ -14,6 +14,7 @@ body {
 
 /* Начальный экран с анимацией */
 .intro {
+    flex-direction:column;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -40,6 +41,9 @@ body {
     -webkit-text-fill-color: transparent;
     text-align: center;
     padding: 0 20px;
+}
+.intro img {
+    animation: fadeIn 2s ease-in forwards;
 }
 
 /* Бургер меню */
