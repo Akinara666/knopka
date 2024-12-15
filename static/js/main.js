@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
             intro.classList.add('hidden');
             mainContent.classList.add('visible');
             showTab('home');
-        }, 100); // Adjust timing as needed
+        }, 3000);
     });
 
     // Handle menu toggle
