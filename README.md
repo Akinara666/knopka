@@ -26,7 +26,7 @@
 
 ---
 
-## **Installation**
+## **Установка**
 
 ### 1. Клонируйте репозиторий
 ```bash
@@ -39,12 +39,20 @@ cd knopka
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
-### 3. Установка зависимостей
+### 3. Установите BuildTools (только для Windows)
+Если вы используете Windows, для установки некоторых пакетов Python (например, scikit-surprise) требуются средства сборки Microsoft C ++.
+
+Загрузите программу установки из [Visual Studio Build Tools.](https://visualstudio.microsoft.com/ru/visual-cpp-build-tools/)
+
+Во время установки обязательно выберите:
+Разработка классических приложений на C++ и такие компоненты, как MSVC v142(143), Windows 10(11) SDK.
+
+### 4. Установка зависимостей
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Запустите приложение
+### 5. Запустите приложение
 Start the Flask development server:
 
 ```bash
