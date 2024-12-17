@@ -1,13 +1,16 @@
+import os
+
 import pandas as pd
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from recommendations.model import MovieRecommender  # Path to your MovieRecommender class
 from models import db, Movie, UserLikes
 from utils.helpers import login_required
 
 movies_bp = Blueprint('movies', __name__)
 
-# Load the top_1000_imdb_movies.csv into a Pandas DataFrame
-TOP_1000_IMDB_PATH = 'recommendations/data/top_1000_imdb_movies.csv'  # Path to your CSV file
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "."))
+TOP_1000_IMDB_PATH = os.path.join(PROJECT_ROOT, "recommendations", "data", "top_1000_imdb_movies.csv")
+
 try:
     top_1000_imdb_movies = pd.read_csv(TOP_1000_IMDB_PATH)
     print(f"Loaded {len(top_1000_imdb_movies)} movies from top_1000_imdb_movies.csv.")
@@ -15,10 +18,13 @@ except Exception as e:
     raise Exception(f"Failed to load top_1000_imdb_movies.csv: {e}")
 
 # Initialize the MovieRecommender object
+MODEL_PATH = os.path.join(PROJECT_ROOT, "recommendations", "data", "knn_model.joblib")
+MOVIES_PATH = os.path.join(PROJECT_ROOT, "recommendations", "data", "movies.csv")
+FILTERED_RATINGS = os.path.join(PROJECT_ROOT, "recommendations", "data", "filtered_ratings.csv")
 recommender = MovieRecommender(
-    model_path='recommendations/data/knn_model.joblib',
-    movies_path='recommendations/data/movies.csv',
-    filtered_ratings_path='recommendations/data/filtered_ratings.csv',
+    model_path=MODEL_PATH,
+    movies_path=MOVIES_PATH,
+    filtered_ratings_path=FILTERED_RATINGS,
     top_n=10
 )
 
