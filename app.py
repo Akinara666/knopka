@@ -1,14 +1,14 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
 from config import Config
 from models import db
 from blueprints import register_blueprints
 
-def create_app():
+
+def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(config_class)
 
     # Initialize extensions
     db.init_app(app)
@@ -21,7 +21,7 @@ def create_app():
     return app
 
 if __name__ == '__main__':
-    app = create_app()
+    app = create_app(config_class=Config)
     with app.app_context():
         db.create_all()
     app.run(debug=True)

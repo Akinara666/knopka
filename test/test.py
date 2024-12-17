@@ -1,7 +1,6 @@
-from venv import create
-
 import pytest
 from app import create_app
+from config import TestConfig
 from models import db, User, Movie, UserLikes
 from werkzeug.security import generate_password_hash
 
@@ -10,9 +9,7 @@ def client():
     """
     Create a test client and set up the database for testing.
     """
-    app = create_app()
-    app.config['TESTING'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'  # Use in-memory SQLite database
+    app = create_app(config_class=TestConfig)
     with app.test_client() as client:
         with app.app_context():
             db.create_all()
@@ -54,7 +51,7 @@ def test_login_user(client):
     """
     Test user login.
     """
-    response = client.post('api/auth/login', json={"login": "testlogin", "password": "password123"})
+    response = client.post('/api/auth/login', json={"login": "testlogin", "password": "password123"})
     assert response.status_code == 200
     assert 'token' in response.json
 
@@ -62,7 +59,7 @@ def test_login_invalid_user(client):
     """
     Test login with invalid credentials.
     """
-    response = client.post('api/auth/login', json={"login": "testlogin", "password": "wrongpassword"})
+    response = client.post('/api/auth/login', json={"login": "testlogin", "password": "wrongpassword"})
     assert response.status_code == 401
     assert response.json['error'] == 'Invalid credentials'
 
