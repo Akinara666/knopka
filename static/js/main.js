@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
             intro.classList.add('hidden');
             mainContent.classList.add('visible');
             showTab('home');
-        }, 3000);
+        }, 1500);
     });
 
     // Handle menu toggle

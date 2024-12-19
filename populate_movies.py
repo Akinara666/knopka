@@ -6,6 +6,10 @@ from app import create_app
 # Set your TMDB API key
 TMDB_API_KEY = "ea5079d0926cb2d553f605868693a9f6"  # Replace with your actual API key
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
+IMAGE_FOLDER = "static/movie_images"  # Define a folder for saving images
+
+# Ensure the image folder exists
+os.makedirs(IMAGE_FOLDER, exist_ok=True)
 
 # Create the Flask app context
 app = create_app()
@@ -79,17 +83,41 @@ def map_genres_to_ids(movie_genres, genre_mapping):
     """
     return ", ".join([genre_mapping.get(genre_id, "Unknown") for genre_id in movie_genres])
 
+
+def download_image(image_url, tmdb_id):
+    """
+    Download an image and save it to the IMAGE_FOLDER with a unique name.
+    :param image_url: The URL of the image to download.
+    :param tmdb_id: The unique TMDB ID of the movie for naming the file.
+    :return: The file path of the downloaded image or None if the download fails.
+    """
+    try:
+        response = requests.get(image_url, stream=True)
+        if response.status_code == 200:
+            file_path = os.path.join(IMAGE_FOLDER, f"{tmdb_id}.jpg")
+            with open(file_path, 'wb') as file:
+                for chunk in response.iter_content(1024):
+                    file.write(chunk)
+            return file_path
+        else:
+            print(f"Failed to download image: {response.status_code}")
+            return None
+    except Exception as e:
+        print(f"Error downloading image: {e}")
+        return None
+
 def add_movie_to_db(movie, genre_mapping):
     """
     Add a single movie to the database with mapped genres and trailer.
     :param movie: A dictionary containing movie details from TMDB.
     :param genre_mapping: Dictionary of {genre_id: genre_name}.
     """
-    tmdb_id = movie.get("id")  # Extract TMDB ID
+    tmdb_id = movie.get("id")
     title = movie.get("title")
     description = movie.get("overview")
     genres = map_genres_to_ids(movie.get("genre_ids", []), genre_mapping)
     image_url = f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}" if movie.get("poster_path") else None
+    local_image_path = download_image(image_url, tmdb_id) if image_url else None
     trailer_url = fetch_trailer(movie.get("id"))  # Fetch the trailer
     rating = movie.get("vote_average", 0.0)
 
@@ -104,7 +132,7 @@ def add_movie_to_db(movie, genre_mapping):
         title=title,
         description=description,
         genres=genres,
-        image_url=image_url,
+        image_url=local_image_path,
         trailer_url=trailer_url,  # Include the trailer URL
         rating=rating
     )
