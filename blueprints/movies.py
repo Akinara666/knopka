@@ -46,7 +46,22 @@ def generate_recommendations(user_id):
         # Fetch the user's favorite movies from the database
         favorite_movies = UserLikes.query.filter_by(user_id=user_id).all()
         if not favorite_movies:
-            return jsonify({"error": "User has no favorite movies."}), 404
+            # Fetch 10 random movies if the user has no favorites
+            random_movies = Movie.query.order_by(db.func.random()).limit(10).all()
+            movies_list = [
+                {
+                    "id": movie.id,
+                    "tmdbId": movie.tmdbId,
+                    "title": movie.title,
+                    "description": movie.description,
+                    "image_url": movie.image_url,
+                    "rating": movie.rating,
+                    "trailer_url": movie.trailer_url,
+                    "genres": movie.genres,
+                }
+                for movie in random_movies
+            ]
+            return jsonify(movies_list), 200
 
         # Convert favorite movies to a dictionary {movieId: rating}
         user_ratings = {movie.movie_id: 5.0 for movie in favorite_movies}  # Default rating is 5.0
