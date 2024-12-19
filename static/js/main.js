@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Adjust based on your HTML structure
      */
     async function loadScrollerContent() {
-        const response = await authFetch('http://127.0.0.1:5000/api/movies/recommendations', {
+        const response = await authFetch('/api/movies/recommendations', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isLoading = true;
 
         try {
-            const response = await authFetch('http://127.0.0.1:5000/api/movies/recommendations', {
+            const response = await authFetch('/api/movies/recommendations', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Load user profile and render it
      */
     async function loadProfile() {
-        const response = await authFetch('http://127.0.0.1:5000/api/user/profile', {
+        const response = await authFetch('/api/user/profile', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -503,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payload = {username, login, password, email: ''}; // Adjust if you have email field
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/auth/register', {
+            const response = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payload = {login, password};
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/auth/login', {
+            const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
