@@ -162,4 +162,4 @@ def populate_movies_database(total_pages=1):
 
 
 if __name__ == "__main__":
-    populate_movies_database(total_pages=100)  # Adjust the number of pages based on your requirements
+    populate_movies_database(total_pages=50)  # Adjust the number of pages based on your requirements

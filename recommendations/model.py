@@ -105,7 +105,7 @@ class MovieRecommender:
                 continue
 
             # Get the top-k similar items (neighbors)
-            k = random.randint(1000, 5000)  # You can adjust k based on your preference
+            k = random.randint(250, 2000)  # You can adjust k based on your preference
             neighbors = self.algo.get_neighbors(inner_iid, k=k)
 
             numer = 0.0
@@ -143,6 +143,9 @@ class MovieRecommender:
 
         top_n_recommendations['title'] = top_n_recommendations['title'].fillna('Unknown Title')
 
+        # Add diversity: shuffle results slightly to introduce variation
+        top_n_recommendations = top_n_recommendations.sample(frac=1.0).reset_index(drop=True)
+
         # Reorder columns for clarity
         top_n_recommendations = top_n_recommendations[['movieId', 'title', 'predicted_rating']]
 
@@ -171,4 +174,3 @@ if __name__ == '__main__':
     # Display the recommendations
     print("Top 10 recommended movies for the new user:")
     print(recommendations)
-
