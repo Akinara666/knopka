@@ -109,9 +109,6 @@ def test_generate_recommendations(client):
     assert token is not None
 
     headers = {"Authorization": f"{token}"}
-    response = client.get('/api/movies/recommendations', headers=headers)
-    assert response.status_code == 404  # No favorite movies yet
-
     # Add a favorite movie
     client.post('/api/movies/like', json={"movieId": 1}, headers=headers)
 

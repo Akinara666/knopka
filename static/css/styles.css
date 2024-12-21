@@ -14,7 +14,7 @@ body {
 
 /* Начальный экран с анимацией */
 .intro {
-    flex-direction:column;
+    flex-direction: column;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -42,6 +42,7 @@ body {
     text-align: center;
     padding: 0 20px;
 }
+
 .intro img {
     animation: fadeIn 2s ease-in forwards;
 }
@@ -219,7 +220,7 @@ header {
     max-height: calc(100vh - 160px); /* Ограничиваем высоту контейнера */
 }
 
-.movie-card  {
+.movie-card {
     position: relative;
     border-radius: 15px;
     overflow: hidden;
@@ -621,4 +622,18 @@ header {
 
 .description h4 {
     font-weight: lighter;
+}
+
+.error-message {
+    font-size: 1.5rem; /* Larger text for emphasis */
+    color: #ffffff; /* Bright red to indicate an error */
+    text-align: center; /* Center the text horizontally */
+    margin-top: 2rem; /* Add spacing from the top */
+    padding: 1rem; /* Add padding around the text */
+    background-color: rgba(0, 0, 0, 0.5); /* Light red background for a warning effect */
+    border: 1px solid #6a0077; /* Add a red border */
+    border-radius: 16px; /* Rounded corners for a softer look */
+    width: 50%; /* Limit width for readability */
+    margin-left: auto; /* Center the box horizontally */
+    margin-right: auto; /* Center the box horizontally */
 }

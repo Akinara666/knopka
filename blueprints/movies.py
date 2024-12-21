@@ -211,3 +211,33 @@ def search_movies():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@movies_bp.route('/liked-movies', methods=['GET'])
+@login_required
+def get_liked_movies(user_id):
+    """
+    Fetch movies liked by the user.
+    """
+    try:
+        liked_movies = UserLikes.query.filter_by(user_id=user_id).all()
+        if not liked_movies:
+            return jsonify([]), 200  # Return an empty list if no liked movies
+
+        movie_ids = [like.movie_id for like in liked_movies]
+        movies = Movie.query.filter(Movie.id.in_(movie_ids)).all()
+
+        # Convert to JSON format
+        movies_list = [
+            {
+                "id": movie.id,
+                "title": movie.title,
+                "genres": movie.genres,
+                "image_url": movie.image_url or "static/images/placeholder.jpg",
+                "description": movie.description
+            }
+            for movie in movies
+        ]
+
+        return jsonify(movies_list), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+

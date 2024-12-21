@@ -23,9 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileEmail = document.getElementById('profile-email');
     const profileRegDate = document.getElementById('profile-registration-date');
     const historyList = document.querySelector('.history-list');
-    const likedList = document.querySelector('.liked-list');
+    const likedContainer = document.querySelector('.liked-list');
     const watchLaterList = document.querySelector('.watch-later-list');
     const reels = document.querySelector('.reels');
+
 
     // Helper Functions
 
@@ -417,8 +418,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             console.error('Failed to fetch scroller content');
             renderMovies(reelsContainer, []);
+            // Display a message in the scroller
+            const scrollerPage = document.getElementById('scroll-page');
+            const message = document.createElement('div');
+            message.classList.add('error-message');
+            message.textContent = 'Войдите в систему чтобы просматривать эту страницу';
+            scrollerPage.innerHTML = ''
+            scrollerPage.appendChild(message);
         }
-
     }
 
     let isLoading = false; // To prevent duplicate fetch calls
@@ -463,6 +470,69 @@ document.addEventListener('DOMContentLoaded', () => {
             loadMoreMovies();
         }
     }
+
+    async function loadLikedMovies() {
+        try {
+            const response = await authFetch('/api/movies/liked-movies');
+            if (!response.ok) {
+                if (response.status === 401) {
+                    // Handle unauthorized error
+                    const likedPage = document.getElementById('liked');
+                    const message = document.createElement('div');
+                    message.classList.add('error-message');
+                    message.textContent = 'Войдите в систему чтобы просматривать эту страницу';
+                    likedPage.innerHTML = ''
+                    likedPage.appendChild(message);
+                } else {
+                    throw new Error('Failed to fetch liked movies.');
+
+                }
+                return;
+
+            }
+            const movies = await response.json();
+
+            likedContainer.innerHTML = ''; // Clear existing content
+
+            if (movies.length === 0) {
+                const noResultsMessage = document.createElement('div');
+                noResultsMessage.classList.add('no-results');
+                noResultsMessage.textContent = 'У вас нет понравившихся фильмов.';
+                likedContainer.appendChild(noResultsMessage);
+                return;
+            }
+
+            movies.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.classList.add('movie-card');
+
+                const movieImg = document.createElement('img');
+                movieImg.src = movie.image_url;
+                movieImg.alt = movie.title;
+
+                const movieInfo = document.createElement('div');
+                movieInfo.classList.add('movie-info');
+
+                const movieTitle = document.createElement('h3');
+                movieTitle.classList.add('movie-title');
+                movieTitle.textContent = movie.title;
+
+                const movieGenres = document.createElement('div');
+                movieGenres.classList.add('movie-genre');
+                movieGenres.textContent = movie.genres.replace(/,/g, ' • ');
+
+                movieInfo.appendChild(movieTitle);
+                movieInfo.appendChild(movieGenres);
+                movieCard.appendChild(movieImg);
+                movieCard.appendChild(movieInfo);
+
+                likedContainer.appendChild(movieCard);
+            });
+        } catch (error) {
+            console.error('Error loading liked movies:', error);
+        }
+    }
+
 
     /**
      * Load user profile and render it
@@ -542,11 +612,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             if (response.ok) {
-                setToken(data.token);
+                setToken(data.token); // Save the auth token
                 alert(`Welcome, ${data.username}!`);
                 hideModals();
-                // Optionally, reload the page or fetch user-specific data
-                showTab('home'); // Load home tab
+                location.reload(); // Reload the page
             } else {
                 alert(`Login failed: ${data.error}`);
             }
