@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>KNOPKA</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/background.css') }}">
+</head>
+<body>
+<!-- Начальный экран -->
+<div class="intro">
+    <h1>Погрузись в мир кино!</h1>
+</div>
+
+
+<!-- Затемнение фона -->
+<div class="overlay"></div>
+
+<!-- Основной контент -->
+<div class="main-content">
+    <header>
+        <div class="header-left">
+            <div class="menu-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="30" viewBox="0 0 40 30">
+                    <rect width="40" height="6" fill="#ff69b4" rx="3"/>
+                    <rect y="12" width="40" height="6" fill="#ff69b4" rx="3"/>
+                    <rect y="24" width="40" height="6" fill="#ff69b4" rx="3"/>
+                </svg>
+            </div>
+            <button class='glowing-btn'><span class='glowing-txt'>K<span class='faulty-letter'>N</span>OPKA</span>
+            </button>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Найди свой любимый фильм...">
+        </div>
+        <div class="auth-buttons">
+            <button class="auth-btn login-btn">Log In</button>
+            <button class="auth-btn signup-btn">Sign Up</button>
+        </div>
+    </header>
+
+    <!-- Боковое меню -->
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="#" data-tab="scroll-page">Рекомендации</a></li>
+            <li><a href="#" class="active" data-tab="home">Поиск</a></li>
+            <li><a href="#" data-tab="profile">Профиль</a></li>
+            <li><a href="#" data-tab="liked">Понравившиеся</a></li>
+        </ul>
+    </aside>
+
+    <!-- Контент страниц -->
+    <div class="content-container">
+        <div class="tab-content" id="home">
+            <div class="movies-container">
+                <!-- Контейнеры для фильмов будут добавлены динамически -->
+            </div>
+        </div>
+
+        <!-- Scroller -->
+        <div class="tab-content" id="scroll-page" style="display: none;">
+            <div class="reels-container">
+                <div class="reels">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница профиля -->
+        <div class="tab-content" id="profile" style="display: none;">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <img src="../../сайт/user.jpg" alt="Avatar" class="avatar">
+                    <h2 class="profile-name">Папаня</h2>
+                </div>
+
+                <div class="profile-info">
+                    <p>Email: <span id="profile-email">evilarthas@mail.com</span></p>
+                    <p>Дата регистрации: <span id="profile-registration-date">23.11.2024</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница понравившихся -->
+        <div class="tab-content" id="liked" style="display: none;">
+            <div class="liked-list">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Модальное окно для входа -->
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Log In</h2>
+        <form>
+            <label for="loginUsername">Логин</label>
+            <input type="text" id="loginUsername" name="loginUsername" required>
+            <label for="loginPassword">Пароль</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+</div>
+
+<!-- Модальное окно для регистрации -->
+<div class="modal" id="signupModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sign Up</h2>
+        <form>
+            <label for="signupUsername">Имя пользователя</label>
+            <input type="text" id="signupUsername" name="signupUsername" required>
+            <label for="signupLogin">Логин</label>
+            <input type="text" id="signupLogin" name="signupLogin" required>
+            <label for="signupPassword">Пароль</label>
+            <input type="password" id="signupPassword" name="signupPassword" required>
+            <label for="signupConfirmPassword">Подтвердите пароль</label>
+            <input type="password" id="signupConfirmPassword" name="signupConfirmPassword" required>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>
