@@ -32,7 +32,7 @@ def login(client):
     """
     Helper function to log in and retrieve a token.
     """
-    response = client.post('api/auth/login', json={"login": "testlogin", "password": "password123"})
+    response = client.post('api/auth/login', json={"login": "testlogin", "password": 'YOUR_PASSWORD_HERE'})
     return response.json['token'] if response.status_code == 200 else None
 
 def test_register_user(client):
@@ -42,7 +42,7 @@ def test_register_user(client):
     response = client.post('api/auth/register', json={
         "username": "newuser",
         "login": "newlogin",
-        "password": "password123"
+        "password": 'YOUR_PASSWORD_HERE'
     })
     assert response.status_code == 201
     assert response.json['message'] == 'User registered successfully'
@@ -51,7 +51,7 @@ def test_login_user(client):
     """
     Test user login.
     """
-    response = client.post('/api/auth/login', json={"login": "testlogin", "password": "password123"})
+    response = client.post('/api/auth/login', json={"login": "testlogin", "password": 'YOUR_PASSWORD_HERE'})
     assert response.status_code == 200
     assert 'token' in response.json
 
@@ -59,7 +59,7 @@ def test_login_invalid_user(client):
     """
     Test login with invalid credentials.
     """
-    response = client.post('/api/auth/login', json={"login": "testlogin", "password": "wrongpassword"})
+    response = client.post('/api/auth/login', json={"login": "testlogin", "password": 'YOUR_PASSWORD_HERE'})
     assert response.status_code == 401
     assert response.json['error'] == 'Invalid credentials'
 

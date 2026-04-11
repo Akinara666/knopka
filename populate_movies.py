@@ -4,7 +4,7 @@ from models import db, Movie
 from app import create_app
 
 # Set your TMDB API key
-TMDB_API_KEY = "ea5079d0926cb2d553f605868693a9f6"  # Replace with your actual API key
+TMDB_API_KEY = 'YOUR_API_KEY_HERE'  # Replace with your actual API key
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 IMAGE_FOLDER = "static/movie_images"  # Define a folder for saving images
 
